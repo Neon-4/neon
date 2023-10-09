@@ -51,9 +51,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'orderApp.apps.OrderappConfig',
-    'userApp.app.UserappConfig',
-    'storeApp.app.StoreappConfig',
-    'themesApp.app.ThemesappConfig',
+    'userApp.apps.UserappConfig',
+    'storeApp.apps.StoreappConfig',
+    'themesApp.apps.ThemesappConfig',
 ]
 
 MIDDLEWARE = [
@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'fourSale.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR,'db.sqlite3'),
     }
 }
 # DATABASES = {
