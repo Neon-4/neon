@@ -34,15 +34,15 @@ const Navbar = () => {
                         type="search"
                         name="search"
                         placeholder="Search"
-                        className="bg-white h-10 md:w-[24rem] lg:w-[32rem] rounded-full text-sm pl-12 pr-4 focus:outline-none"
+                        className="bg-white h-10 sm:w-[16rem] md:w-[32rem] rounded-full text-sm pl-12 pr-4 focus:outline-none"
                     />
                     <FiSearch className="absolute left-4 top-3" />
                 </div>
-                <div className="relative ml-4">
+                {/* <div className="relative ml-4">
                     <select className="bg-white h-10 rounded-full text-sm px-4 focus:outline-none cursor-not-allowed">
                         <option>categories</option>
                     </select>
-                </div>
+                </div> */}
             </div>
 
             <div
