@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'rest_framework_swagger',
+    'drf_yasg',
     'orderApp.apps.OrderappConfig',
     'userApp.app.UserappConfig',
     'storeApp.app.StoreappConfig',
@@ -87,6 +89,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'fourSale.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS':
+    'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 100,
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'  # <-- Here
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
