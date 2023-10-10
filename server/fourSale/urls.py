@@ -46,5 +46,5 @@ urlpatterns = [
     path('', include('storeApp.urls')),
     path('user/', include('userApp.urls')),
     path('order/', include('orderApp.urls')),
-    path('themes.', include('themesApp.urls'))
+    path('themes/', include('themesApp.urls'))
 ]
