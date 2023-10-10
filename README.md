@@ -13,3 +13,10 @@ pip install -r requirements.txt
 - make sure  the .env file is also the latest one in the chat and in the server/fourSale folder
 start application
 - python manage.py runserver
+
+
+API Endpoints
+
+| Type | Endpoints | Description |
+|------| ----------| ------------|
+| POST | /api/auth/register | create new user with username, phone number and password |
