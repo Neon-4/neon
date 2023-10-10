@@ -3,10 +3,16 @@ import { FiSearch } from "react-icons/fi";
 import { HiOutlineChevronDown } from "react-icons/hi";
 import { IoMdHome } from 'react-icons/io';
 import { FaShoppingCart, FaUser, FaCog, FaPowerOff } from 'react-icons/fa';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { currentModalData } from "../reactstates";
 
-const Navbar = () => {
+
+const Navbar = (props) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
+    // const { showModal, setShowModal } = props;
+	// const [modalEditableState, setModalEditableState] = useRecoilState(currentModalEditState);
+	// const [userInfo, setUserInfo] = useRecoilState(currentModalData);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -77,9 +83,20 @@ const Navbar = () => {
                                 <FaUser className="mr-2" />
                                 Profile
                             </li>
-                            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer flex items-center">
+                            <li 
+                                onClick={() => {
+                                    setModalEditableState(false);
+                                    setUserInfo({
+                                        username: '',
+                                        password: '',
+                                        
+                                    });
+                                    setShowModal(true);
+                                }}
+                                className="px-4 py-2 hover:bg-gray-200 cursor-pointer flex items-center"
+                            >
                                 <FaPowerOff className="mr-2" />
-                                Logout
+                                Login
                             </li>
                         </ul>
                     </div>
