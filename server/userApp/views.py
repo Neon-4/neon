@@ -30,3 +30,8 @@ def apiBase(request):
 def apiGetUsers(request):
     users = list(User.objects.all().values())
     return JsonResponse(users, content_type="application.json")
+
+@api_view(['GET'])
+def adminAuthUsers(request):
+    users = list(User.objects.all().values())
+    return JsonResponse(users, content_type="application.json")

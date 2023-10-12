@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     'userApp.apps.UserappConfig',
     'storeApp.apps.StoreappConfig',
     'themesApp.apps.ThemesappConfig',
+    'adminApp.apps.AdminappConfig',
+    'customerApp.apps.CustomerappConfig',
 ]
 
 MIDDLEWARE = [
