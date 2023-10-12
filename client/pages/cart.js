@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-const Cart = ({ product }) => {
+// const Cart = ({ product }) => {
+const Cart = () => {
     const [allProducts, setAllProducts] = useState([]);
 
     useEffect(() => {
