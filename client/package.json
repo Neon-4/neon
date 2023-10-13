@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@babel/preset-react": "^7.22.15",
     "bootstrap": "^5.3.2",
     "next": "13.5.4",
     "react": "^18",
