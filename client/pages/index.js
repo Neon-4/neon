@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div>
         <Navbar/>
-        {/* <Landing/> */}
+        <Landing/>
         <Login/>
     </div>
   )

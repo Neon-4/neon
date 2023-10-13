@@ -9,7 +9,7 @@ import Login from './Login';
 const Navbar = (props) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
-	const [show, setShow] = useState(false);
+	const [showLogin, setShowLogin] = useState(false);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -81,7 +81,7 @@ const Navbar = (props) => {
                                 Profile
                             </li>
                             <li 
-                                onClick={setShow(Login)}
+                                onClick={setShowLogin(showLogin)}
                                 className="px-4 py-2 hover:bg-gray-200 cursor-pointer flex items-center"
                             >
                                 <FaPowerOff className="mr-2" />
