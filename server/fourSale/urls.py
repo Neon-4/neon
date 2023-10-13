@@ -24,14 +24,16 @@ from userApp import views as app_views
 from storeApp import views as app_views
 from orderApp import views as app_views
 from themesApp import views as app_views
+from customerApp import views as app_views
+from adminApp import views as app_view
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Jaseci API",
+        title="Neon4 - 4Sale API",
         default_version='v1',
-        description="Welcome to the world of Jaseci",
-        terms_of_service="https://www.jaseci.org",
-        contact=openapi.Contact(email="jason@jaseci.org"),
+        description="Welcome to the world of Neon4",
+        terms_of_service="https://www.neon4.com",
+        contact=openapi.Contact(email="neon4@neon4.com"),
         license=openapi.License(name="Awesome IP"),
     ),
     public=True,
@@ -40,11 +42,13 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     re_path(r'^doc(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    path('doc/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'), 
     path('admin/', admin.site.urls),
-    path('', include('storeApp.urls')),
-    path('user/', include('userApp.urls')),
-    path('order/', include('orderApp.urls')),
-    path('themes/', include('themesApp.urls'))
+    path('', include('userApp.urls')),
+    path('api/store/', include('storeApp.urls')),
+    path('api/', include('customerApp.urls')),
+    path('api/order/', include('orderApp.urls')),
+    path('api/themes/', include('themesApp.urls')),
+    path('api/theAdmin', include('adminApp.urls'))
 ]
