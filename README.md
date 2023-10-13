@@ -5,7 +5,7 @@ NextJs / Django
 ## Running Backend
 - Create root environment outside of repo folder
 (python -m venv eCommEnv)
-- Activate environment
+- source
 (source environments/eCommEnv/bin/activate (mac) source environments/eCommEnv/Scripts/activate (windows))
 - cd to server folder
 pip install -r requirements.txt
