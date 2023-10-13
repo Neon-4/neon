@@ -11,6 +11,9 @@ const Navbar = (props) => {
     const dropdownRef = useRef(null);
 	const [showLogin, setShowLogin] = useState(false);
 
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -81,7 +84,7 @@ const Navbar = (props) => {
                                 Profile
                             </li>
                             <li 
-                                onClick={setShowLogin(showLogin)}
+                                onClick={() => setShowLogin(!showLogin)}
                                 className="px-4 py-2 hover:bg-gray-200 cursor-pointer flex items-center"
                             >
                                 <FaPowerOff className="mr-2" />

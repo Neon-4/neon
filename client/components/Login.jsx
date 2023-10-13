@@ -10,9 +10,9 @@ const Login = ({ showLogin, setShowLogin }) => {
 		setShowLogin(current => !current);
 	};
 
-	if (!showLogin) {
-		return null;
-	}
+	// if (!showLogin) {
+	// 	return null;
+	// }
 
 	return (
 		<div className='w-1/3 max-w-xs mx-auto flex items-center justify-center h-screen'>
@@ -36,9 +36,9 @@ const Login = ({ showLogin, setShowLogin }) => {
 						id="username"
 						placeholder="Username"
 						// value={currentUser.username}
-						onChange={e => {
-							setPassword(e.target.value);
-						}}
+						// onChange={e => {
+						// 	setPassword(e.target.value);
+						// }}
 						required
 					/>
 					<label htmlFor="password" className="block text-gray-700 text-sm font-bold mt-2 mb-1"
@@ -47,9 +47,9 @@ const Login = ({ showLogin, setShowLogin }) => {
 						id="password"
 						placeholder="Password"
 						// value={currentUser.password}
-						onChange={e => {
-							setLoggedInUser(e.target.value);
-						}}
+						// onChange={e => {
+						// 	setLoggedInUser(e.target.value);
+						// }}
 						required
                     >
 						Password
@@ -61,9 +61,9 @@ const Login = ({ showLogin, setShowLogin }) => {
 						id="password"
 						placeholder="Password"
 						// value={currentPassword.password}
-						onChange={e => {
-							setPassword(e.target.value);
-						}}
+						// onChange={e => {
+						// 	setPassword(e.target.value);
+						// }}
 						required
 					/>
                     <p class="text-red-500 text-xs italic mb-3">Please choose a password.</p>
