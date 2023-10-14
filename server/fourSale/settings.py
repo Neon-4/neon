@@ -54,10 +54,8 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
     'drf_yasg',
     'orderApp.apps.OrderappConfig',
-    'userApp.apps.UserappConfig',
     'storeApp.apps.StoreappConfig',
     'themesApp.apps.ThemesappConfig',
-    'adminApp.apps.AdminappConfig',
     'customerApp.apps.CustomerappConfig',
 ]
 
