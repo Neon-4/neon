@@ -15,7 +15,6 @@ export default function Home() {
     <div>
         <Navbar/>
         <Landing/>
-        <AllProducts/>
         {/* <Login showLogin={showLogin} setShowLogin={setShowLogin} /> */}
     </div>
   )
