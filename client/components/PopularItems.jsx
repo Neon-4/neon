@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from "react"
 import ItemBox from './ItemsBox'
+import axios from 'axios'
 
 const PopularItems = () => {
     const items = [
@@ -10,27 +11,27 @@ const PopularItems = () => {
             itemPrice: '$17.35',
         },
         {
-            index:2,
+            index: 2,
             image: 'https://m.media-amazon.com/images/I/31Bfzl8w8qL._SX300_SY300_QL70_FMwebp_.jpg',
             itemName: 'Waterpik Aquarius Water Flosser Professional For Teeth',
             itemPrice: '$74.97',
-        },        
+        },
         {
-            index:3,
+            index: 3,
             image: 'https://m.media-amazon.com/images/I/312ijnXq4rL._SX300_SY300_QL70_FMwebp_.jpg',
             itemName: 'SKIN PERFECTING 2% BHA Liquid Salicylic Acid',
             itemPrice: '$34.93',
-        },      
+        },
         {
             index: 4,
             image: 'https://m.media-amazon.com/images/I/71SU7uQJO5L.__AC_SX300_SY300_QL70_FMwebp_.jpg',
             itemName: 'RESTCLOUD Neck and Shoulder Relaxer',
             itemPrice: '$19.99',
-        },        {
+        }, {
             image: 'https://m.media-amazon.com/images/I/31+mC6e0xkL._SY300_SX300_.jpg',
             itemName: 'SKIN PERFECTING 2% BHA Liquid Salicylic Acid',
             itemPrice: '$19.99',
-        },        
+        },
         {
             index: 5,
             image: 'https://m.media-amazon.com/images/I/415jogGYMuL._SX300_SY300_QL70_FMwebp_.jpg',
