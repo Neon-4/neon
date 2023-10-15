@@ -12,33 +12,34 @@ from .serializers import *
 
 
 @api_view(['GET'])
-def apiGetCategory(request):
-    categories = list(Category.objects.all().values())
-    return JsonResponse(categories, safe=False, content_type="application.json")
+def apiGetAllCategories(request):
+    try:
+        categories = Category.objects.all().values()
+        serializer = CategorySerializer(categories,many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Category.DoesNotExist:
+        data = []
+        return Response(data, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['GET'])
-def apiGetProduct(request):
-    products = list(Product.objects.all().values())
-    return JsonResponse(products, safe=False, content_type="application.json")
-
-# @api_view(['GET'])
-# def apiGetProdByCat(request, category_id):
-#     theProdByCat = Product.objects.filter(category_id=category_id)
-#     prodByCat = serializers.serialize("json", theProdByCat)
-#     return JsonResponse(prodByCat, safe=False, content_type="application.json")
+def apiGetAllProducts(request):
+    try:
+        products = Product.objects.all().values()
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Product.DoesNotExist:
+        data = []
+        return Response(data, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['GET'])
-def apiGetProdByCat(request, category_id):
-    products = Product.objects.filter(category_id=category_id)
-    serializer = ProductSerializer(products, many=True)
-    return Response(serializer.data)
-
-# @api_view(['GET'])
-# def apiGetOneProd(request, prod_id):
-#     product = Product.objects.get(id=prod_id)
-#     prodImages = ProductImages.objects.filter(prod_id=prod_id)
-#     data = [product, prodImages]
-#     return JsonResponse(data, safe=False, content_type="application.json")
+def apiGetAllProdByCat(request, category_id):
+    try:
+        products = Product.objects.filter(category_id=category_id)
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Product.DoesNotExist:
+        data = []
+        return Response(data, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['GET'])
 def apiGetOneProd(request, prod_id):
@@ -54,11 +55,7 @@ def apiGetOneProd(request, prod_id):
             'productImages': prodImages_serializer.data
         }
         
-        return Response(response_data)
+        return Response(response_data, status=status.HTTP_200_OK)
     except Product.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-@api_view(['GET'])
-def apiGetProdImages(request):
-    prodImages = list(ProductImages.objects.all().values())
-    return JsonResponse(prodImages, safe=False, content_type="application.json")
+        data = []
+        return Response(data, status=status.HTTP_404_NOT_FOUND)

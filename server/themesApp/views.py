@@ -9,13 +9,19 @@ from .models import *
 
 
 # Base
-apiStatus = {
-    "API Status": "Running"
-}
 
 @api_view(['GET'])
 def apiBase(request):
-    return JsonResponse(apiStatus, content_type="application.json")
+    try:
+        apiStatus = {
+            "API Status": "Running"
+        }
+        return Response(apiStatus, status=status.HTTP_200_OK)
+    except:
+        apiStatus = {
+            "API Status": "Error"
+        }
+        return Response(apiStatus, status=status.HTTP_404_NOT_FOUND)
 
 
 # themes/

@@ -9,7 +9,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.apiBase),
-    path('api/user/', views.apiGetUsers),
     path('theme/', views.fullInfo),
     path('theme/addStoreInfo/', views.addStoreInfo),
     path('theme/addStoreColors/', views.addStoreColors),
