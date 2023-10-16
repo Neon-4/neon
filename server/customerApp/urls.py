@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     # Base Route
-    # path('', views.),
+    path('', views.apiGetAllCustomers),
 
 ]
 if settings.DEBUG:
