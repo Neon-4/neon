@@ -54,7 +54,7 @@ const Profile = () => {
                     alt="Profile"
                     className="w-24 h-24 rounded-full border-4 border-[#126cb3]"
                 />
-                <h2 className="mt-4 text-2xl font-semibold text-[black]">abrar</h2>
+                <h2 className="mt-4 text-2xl font-semibold text-[black]">first name</h2>
                 {/* <p>Member since {session.user.timestamp}</p> */}
                 {/* Form for editing user data */}
                 <form className="mt-4 max-w-md w-full sm:w-2/3 md:w-1/2">
