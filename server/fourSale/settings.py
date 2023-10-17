@@ -183,3 +183,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # EMAIL_PORT = 587
 # EMAIL_HOST_USER = 'myemail@gmail.com'
 # EMAIL_HOST_PASSWORD = HOST_PASSWORD
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']

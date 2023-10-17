@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import CustomInput from './CustomInput'; 
 import CustomColorInput from './CustomColorInput';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
 
 
 function AddStore() {
@@ -11,10 +12,17 @@ function AddStore() {
         storeName: '',
         storeTagLine: '',
         contactEmail: '',
-        address: '',
+        contactPhone: '',
+        contactName:'',
+        ownerName:'',
+        address01: '',
+        address02: '',
         city: '',
         state: '',
         zip: '',
+        
+        });
+    const [storeColors, setStoreColors] = useState({
         headerBG: '',
         headerFont: '',
         navBG: '',
@@ -22,8 +30,9 @@ function AddStore() {
         mainBG: '',
         mainFont: '',
         productBG: '',
-        productFont: ''
-        });
+        productFont: '',
+        store: '',
+    });    
     const FONT_OPTIONS = [
         "Arial",
         "Verdana",
@@ -41,19 +50,42 @@ function AddStore() {
         setSelectedFont(e.target.value);
     };
 
-    const handleChange = (e) => {
-        setStoreInfo({
-            ...storeInfo,
-            [e.target.name]: e.target.value
-        });
-    };    
+    const handleStoreInfoChange = (e) => {
+            setStoreInfo({
+                ...storeInfo,
+                [e.target.name]: e.target.value,
+            });
+    };
+    
+    const handleStoreColorsChange = (e) => {
+            setStoreColors({
+                ...storeColors,
+                [e.target.name]: e.target.value,
+            });
+            
+    };
+    
 
     const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-        console.log(storeInfo);
-        // Proceed with form submission logic ( API call)
-            }
+        e.preventDefault();
+        const isValid = validateForm(); // Validate form before submitting
+            if (isValid) {
+            // Submit storeInfo
+            axios.post(`http://localhost:8000/theme/addStoreInfo/`, storeInfo)
+            .then((response) => {
+            console.log(response.data);
+            // Then submit storeColors after storeInfo is successful
+            return axios.post('http://localhost:8000/theme/addStoreColors/', storeColors);
+        })
+        .then((response) => {
+            console.log(response.data);
+        })
+        .catch((error) => {
+            console.error('There was an error!', error);
+        });
+            } else {
+            console.error('Validation failed');
+                }
     };
 
     const validateForm = () => {
@@ -73,10 +105,12 @@ function AddStore() {
             formErrors.contactEmail = "Email address is invalid";
         }
 
-        if (!storeInfo.address.trim()) {
+        if (!storeInfo.address01.trim()) {
             formErrors.address = "Address is required";
         }
-
+        if (!storeInfo.address02.trim()) {
+            formErrors.address = "Address is required";
+        }
         if (!storeInfo.city.trim()) {
             formErrors.city = "City is required";
         }
@@ -88,16 +122,16 @@ function AddStore() {
         if (!storeInfo.zip.trim()) {
             formErrors.zip = "Zip code is required";
         }
-        if (!storeInfo.headerBG.trim()) {
+        if (!storeColors.headerBG.trim()) {
             formErrors.headerBG = "Header BG is required";
         }
-        if (!storeInfo.headerFont.trim()) {
+        if (!storeColors.headerFont.trim()) {
             formErrors.headerFont = "Header Font is required";
         }
-        if (!storeInfo.navBG.trim()) {
+        if (!storeColors.navBG.trim()) {
             formErrors.navBG = "Nav BG is required";
         }
-        if (!storeInfo.navFont.trim()) {
+        if (!storeColors.navFont.trim()) {
             formErrors.navFont = "Nav Font is required";
         }
 
@@ -107,12 +141,12 @@ function AddStore() {
     return (
         <div className="d-flex justify-content-center align-items-center vh-70 bg-light mt-20 ">
             <div className="bg-secondary p-5 rounded mt-20">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} method="post">
                     <h2 className="text-center text-white mb-4">Add Store</h2>
                     <CustomInput 
                     label="Store Name" 
                     value={storeInfo.storeName} 
-                    onChange={handleChange} 
+                    onChange={handleStoreInfoChange} 
                     type="text" 
                     name="storeName"
                     />
@@ -121,7 +155,7 @@ function AddStore() {
                     <CustomInput 
                     label="Store TagLine" 
                     value={storeInfo.storeTagLine} 
-                    onChange={handleChange} 
+                    onChange={handleStoreInfoChange} 
                     type="text" 
                     name="storeTagLine"
                     />
@@ -130,25 +164,32 @@ function AddStore() {
                     <CustomInput 
                     label="Contact Email" 
                     value={storeInfo.contactEmail} 
-                    onChange={handleChange} 
+                    onChange={handleStoreInfoChange} 
                     type="email" 
                     name="contactEmail"
                     />
                     {errors.contactEmail && <div className="alert alert-info mt-4" role="alert"> {errors.contactEmail}</div>}
 
                     <CustomInput 
-                        label="Address" 
-                        value={storeInfo.address} 
-                        onChange={handleChange} 
+                        label="Address 1" 
+                        value={storeInfo.address01} 
+                        onChange={handleStoreInfoChange} 
                         type="text" 
-                        name="address"
+                        name="address01"
                     />
                     {errors.address && <div className="alert alert-info mt-4" role="alert"> {errors.address}</div>}
-
+                    <CustomInput 
+                        label="Address 2" 
+                        value={storeInfo.address02} 
+                        onChange={handleStoreInfoChange} 
+                        type="text" 
+                        name="address02"
+                    />
+                    {errors.address && <div className="alert alert-info mt-4" role="alert"> {errors.address}</div>}
                     <CustomInput 
                         label="City" 
                         value={storeInfo.city} 
-                        onChange={handleChange} 
+                        onChange={handleStoreInfoChange} 
                         type="text" 
                         name="city"
                     />
@@ -157,7 +198,7 @@ function AddStore() {
                     <CustomInput 
                         label="State" 
                         value={storeInfo.state} 
-                        onChange={handleChange} 
+                        onChange={handleStoreInfoChange} 
                         type="text" 
                         name="state"
                     />
@@ -166,58 +207,111 @@ function AddStore() {
                     <CustomInput 
                         label="Zip" 
                         value={storeInfo.zip} 
-                        onChange={handleChange} 
+                        onChange={handleStoreInfoChange} 
                         type="text" 
                         name="zip"
                     />
                     {errors.zip && <div className="alert alert-info mt-4" role="alert">{errors.zip}</div>}
 
                     <h2 className="text-center text-white mb-4">Pick Store Colors</h2>
-                    <div className="d-flex justify-content-center align-items-center gap-3 ">
-                        <div className="inline-block" >
-                            <CustomColorInput
-                                label="Header BG"
-                                value={storeInfo.headerBG} 
-                                onChange={handleChange} 
-                                name="headerBG"
-                                type="color"
-                                fonts={FONT_OPTIONS}
-                            />
-                            {errors.headerBG && <div className="alert alert-info mt-4" role="alert"> {errors.headerBG}</div>}
+                    <div className="d-flex flex-column align-items-center gap-3 mr-2 ">
+                        <div className="d-flex justify-content-between w-100 m-3">
+                            <div className="d-flex align-items-center mr-2 ">
+                                <div className="inline-block " style={{ marginRight: '100px' }}>
+                                    <CustomColorInput
+                                        label="Header BG"
+                                        value={storeColors.headerBG} 
+                                        onChange={handleStoreColorsChange} 
+                                        name="headerBG"
+                                        type="color"
+                                        fonts={FONT_OPTIONS}
+                                    />
+                                    {errors.headerBG && <div className="alert alert-info mt-4" role="alert"> {errors.headerBG}</div>}
+                                </div>
+                                <div className="inline-block" style={{ marginRight: '100px' }}>
+                                    <CustomColorInput
+                                        label="Nav BG" 
+                                        value={storeColors.navBG} 
+                                        onChange={handleStoreColorsChange} 
+                                        name="navBG"
+                                        type="color"
+                                        fonts={FONT_OPTIONS}
+                                    />
+                                    {errors.navBG && <div className="alert alert-info mt-4" role="alert"> {errors.navBG}</div>}
+                                </div>
+                                <div className="inline-block" style={{ marginRight: '100px' }} >
+                                    <CustomColorInput
+                                        label="Nav Font" 
+                                        value={storeColors.navFont} 
+                                        onChange={handleStoreColorsChange} 
+                                        name="navFont"
+                                        type="font"
+                                        fonts={FONT_OPTIONS}
+                                    />
+                                    {errors.navFont && <div className="alert alert-info mt-4" role="alert"> {errors.navFont}</div>}
+                                </div>
+                            </div>    
                         </div>
-                        <div className="inline-block" >
-                            <CustomColorInput
-                                label="Header Font" 
-                                value={storeInfo.headerFont} 
-                                onChange={handleChange}
-                                name="headerFont"
-                                type="font"
-                                fonts={FONT_OPTIONS}
-                            />
-                            {errors.headerFont && <div className="alert alert-info mt-4" role="alert">{errors.headerFont}</div>}
-                        </div>
-                        <div className="inline-block" >
-                            <CustomColorInput
-                                label="Nav Background" 
-                                value={storeInfo.navBG} 
-                                onChange={handleChange} 
-                                name="navBG"
-                                type="color"
-                                fonts={FONT_OPTIONS}
-                            />
-                            {errors.navBG && <div className="alert alert-info mt-4" role="alert"> {errors.navBG}</div>}
-                        </div>
-                        <div className="inline-block" >
-                            <CustomColorInput
-                                label="Nav Font" 
-                                value={storeInfo.navFont} 
-                                onChange={handleChange} 
-                                name="navFont"
-                                type="font"
-                                fonts={FONT_OPTIONS}
-                            />
-                            {errors.navFont && <div className="alert alert-info mt-4" role="alert"> {errors.navFont}</div>}
-                        </div>    
+                        <div className="d-flex justify-content-between w-100">
+                            <div className="d-flex align-items-center mr-2">
+                                <div className="inline-block" style={{ marginRight: '20px' }} >
+                                    <CustomColorInput
+                                        label="Main BG" 
+                                        value={storeColors.mainBG} 
+                                        onChange={handleStoreColorsChange} 
+                                        name="mainBG"
+                                        type="color"
+                                        fonts={FONT_OPTIONS}
+                                    />
+                                    {errors.navFont && <div className="alert alert-info mt-4" role="alert"> {errors.navFont}</div>}
+                                </div>
+                                <div className="inline-block"  style={{ marginRight: '20px' }} >
+                                    <CustomColorInput
+                                        label="Main Font" 
+                                        value={storeColors.mainFont} 
+                                        onChange={handleStoreColorsChange} 
+                                        name="mainFont"
+                                        type="font"
+                                        fonts={FONT_OPTIONS}
+                                    />
+                                    {errors.navFont && <div className="alert alert-info mt-4" role="alert"> {errors.navFont}</div>}
+                                </div>
+                                <div className="inline-block"  style={{ marginRight: '20px' }} >
+                                    <CustomColorInput
+                                        label="Nav Font" 
+                                        value={storeColors.navFont} 
+                                        onChange={handleStoreColorsChange} 
+                                        name="navFont"
+                                        type="font"
+                                        fonts={FONT_OPTIONS}
+                                    />
+                                    {errors.navFont && <div className="alert alert-info mt-4" role="alert"> {errors.navFont}</div>}
+                                </div>
+                                <div className="inline-block"  style={{ marginRight: '20px' }} >
+                                    <CustomColorInput
+                                        label="Produc BG" 
+                                        value={storeColors.productBG} 
+                                        onChange={handleStoreColorsChange} 
+                                        name="productBG"
+                                        type="color"
+                                        fonts={FONT_OPTIONS}
+                                    />
+                                    {errors.navFont && <div className="alert alert-info mt-4" role="alert"> {errors.navFont}</div>}
+                                </div>
+                                <div className="inline-block"  >
+                                    <CustomColorInput
+                                        label="Product Font" 
+                                        value={storeColors.productFont} 
+                                        onChange={handleStoreColorsChange} 
+                                        name="productFont"
+                                        type="font"
+                                        fonts={FONT_OPTIONS}
+                                    />
+                                    {errors.navFont && <div className="alert alert-info mt-4" role="alert"> {errors.navFont}</div>}
+                                </div>
+                            </div>
+                        </div>        
+
                     </div>
                     <div className="text-center mt-4">
                         <button type="submit" className="btn btn-primary w-40">Submit</button>
