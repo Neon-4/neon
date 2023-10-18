@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import { FiSearch } from "react-icons/fi";
 import { HiOutlineChevronDown } from "react-icons/hi";
 import { IoMdHome } from 'react-icons/io';
@@ -67,29 +68,39 @@ const Navbar = (props) => {
                 {isDropdownOpen && (
                     <div className="absolute right-0 mt-2 w-32 rounded-lg shadow-lg bg-white text-gray-700 z-10">
                         <ul className="py-2">
-                            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer flex items-center">
-                                <IoMdHome className="mr-2" />
-                                Home
-                            </li>
-                            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer flex items-center">
-                                <FaShoppingCart className="mr-2" />
-                                Cart
-                            </li>
-                            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer flex items-center">
-                                <FaCog className="mr-2" />
-                                Settings
-                            </li>
-                            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer flex items-center">
-                                <FaUser className="mr-2" />
-                                Profile
-                            </li>
-                            <li 
-                                onClick={() => setShowLogin(!showLogin)}
-                                className="px-4 py-2 hover:bg-gray-200 cursor-pointer flex items-center"
-                            >
-                                <FaPowerOff className="mr-2" />
-                                Login
-                            </li>
+                            <Link href='/'>
+                                <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer flex items-center">
+                                    <IoMdHome className="mr-2" />
+                                    Home
+                                </li>
+                            </Link>
+                            <Link href='/cart'> 
+                                <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer flex items-center">
+                                    <FaShoppingCart className="mr-2" />
+                                    Cart
+                                </li>
+                            </Link>
+                            <Link href='/settings'>
+                                <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer flex items-center">
+                                    <FaCog className="mr-2" />
+                                    Settings
+                                </li>
+                            </Link>
+                            <Link href='/profile'>
+                                <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer flex items-center">
+                                    <FaUser className="mr-2" />
+                                    Profile
+                                </li>
+                            </Link>
+                            <Link href='/login'> 
+                                <li 
+                                    onClick={() => setShowLogin(!showLogin)}
+                                    className="px-4 py-2 hover:bg-gray-200 cursor-pointer flex items-center"
+                                >
+                                    <FaPowerOff className="mr-2" />
+                                    Login
+                                </li>
+                            </Link>
                         </ul>
                     </div>
                 )}
