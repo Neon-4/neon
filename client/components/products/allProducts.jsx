@@ -10,9 +10,10 @@ const AllProducts = () => {
         const fetchProducts = async () => {
             try {
                 // Fetch products from the API endpoint
-                const response = await fetch('https://ecom-back.thehive-services.com/api/store/products/');
+                const response = await fetch('http://127.0.0.1:8000/api/store/products/');
                 if (response.ok) {
                     const productsData = await response.json();
+                    console.log("the products", productsData)
                     setAllProducts(productsData);
                 } else {
                     throw new Error('Failed to fetch products');
