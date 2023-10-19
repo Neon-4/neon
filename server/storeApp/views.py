@@ -23,10 +23,16 @@ def apiGetAllCategories(request):
 
 @api_view(['GET'])
 def apiGetAllProducts(request):
+    # try:
+    #     products = Product.objects.all().values()
+    #     serializer = ProductSerializer(products, many=True)
+    #     return Response(serializer.data, status=status.HTTP_200_OK)
+    # except Product.DoesNotExist:
+    #     data = []
+    #     return Response(data, status=status.HTTP_404_NOT_FOUND)
     try:
-        products = Product.objects.all().values()
-        serializer = ProductSerializer(products, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        products = list(Product.objects.all().values())
+        return JsonResponse(products, status=status.HTTP_200_OK, safe=False, content_type="application.json")
     except Product.DoesNotExist:
         data = []
         return Response(data, status=status.HTTP_404_NOT_FOUND)
