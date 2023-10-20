@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google'
 import Landing from '@/components/Landing'
 import Navbar from '@/components/Navbar'
 import Login from '@/components/Login';
-
+import Link from 'next/link';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Home() {
@@ -15,6 +15,8 @@ export default function Home() {
         <Navbar/>
         <Landing/>
         <Login showLogin={showLogin} setShowLogin={setShowLogin} />
+        <Link href="/pages/products"></Link>
+
       <Navbar />
       <Landing />
     </div>
