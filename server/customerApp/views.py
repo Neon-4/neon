@@ -34,3 +34,23 @@ def apiCustomerRegistration(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['POST'])
+def apiCustomerLogin(request):
+    if request.method == 'POST':
+        customer = Customer.objects.filter(email = request.data['email'])
+        if customer:
+            custLogin = customer[0]
+            if bcrypt.checkpw(request.data['password'].encode(), custLogin.password.encode()):
+                req = {
+                    'response': f"{custLogin.firstName} is now logged in"
+                }
+                return Response(req, status=status.HTTP_202_ACCEPTED)
+            req = {
+                'response': "Invalid Credentials"
+            }
+            return Response(req, status=status.HTTP_401_UNAUTHORIZED)
+        req = {
+            'response': "Email not in system"
+        }
+        return Response(req, status=status.HTTP_401_UNAUTHORIZED)
