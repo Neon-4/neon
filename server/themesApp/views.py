@@ -23,6 +23,19 @@ def apiBase(request):
         }
         return Response(apiStatus, status=status.HTTP_404_NOT_FOUND)
 
+@api_view(['GET'])
+def apiFun(request):
+    try:
+        apiFun = {
+            "EasterEgg Fun": "I am a teapot"
+        }
+        return Response(apiFun, status=status.HTTP_418_IM_A_TEAPOT)
+    except:
+        apiStatus = {
+            "API Status": "Error"
+        }
+        return Response(apiStatus, status=status.HTTP_404_NOT_FOUND)
+
 
 # themes/
 
