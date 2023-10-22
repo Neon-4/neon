@@ -6,8 +6,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     # Base Route
     path('', views.apiGetAllCustomers),
-    path('registration/', views.apiCustomerRegistration),
-    path('login/', views.apiCustomerLogin),
+    path('/registration/', views.apiCustomerRegistration),
+    path('/login/', views.apiCustomerLogin),
 
 ]
 if settings.DEBUG:

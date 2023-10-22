@@ -40,7 +40,8 @@ const AllProducts = () => {
             setStartIndex(startIndex - 5);
         }
     };
-
+    // This is how the image src will need to be linked in but this errors out
+    // var imgSrc=`https://ecom-back.thehive-services.com${product.image}`
     return (
         <div>
             <div className="flex items-center justify-between mb-4">
@@ -54,7 +55,7 @@ const AllProducts = () => {
             <div className="overflow-x-auto flex pb-4">
                 {allProd.map(product => (
                     <div className="bg-[#eae7e7] rounded-lg p-4 shadow-md mx-2" key={product.id}>
-                        <img src="https://m.media-amazon.com/images/I/51Y2jSytusL._SX300_SY300_QL70_FMwebp_.jpg" alt={product.name} className="object-cover mb-2" draggable='false' />
+                        <img src={imgSrc} alt={product.name} className="object-cover mb-2" draggable='false' />
                         <p className="text-left font-bold text-xs md:text-md lg:text-md">{product.name}</p>
                         <p className="text-left text-xs md:text-md lg:text-md mt-3">${product.price}</p>
                         <div className='mt-6'>
