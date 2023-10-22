@@ -32,7 +32,7 @@ class Customer(models.Model):
         return f'{self.firstName} {self.lastName}'
     
 
-class CustomerProfile(models.Model):
+class Profile(models.Model):
     user = models.OneToOneField(Customer, unique=True, on_delete=models.CASCADE)
     address01 = models.CharField(max_length=255, blank=True)
     address02 = models.CharField(max_length=255, blank=True)
@@ -42,7 +42,7 @@ class CustomerProfile(models.Model):
     phone = models.CharField(max_length=255, blank=True)
     age = models.DateField(blank=True, null=True)
     def __str__(self):
-        return f'{self.user.firstName} CustomerProfile'
+        return f'{self.user.firstName} Profile'
     def address(self):
         return f'{self.address01} {self.address02} {self.city} {self.state} {self.zip}'
     def tel(self):

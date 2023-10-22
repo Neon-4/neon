@@ -4,10 +4,10 @@ from .models import *
 
 
 @receiver(post_save, sender=Customer)
-def createCustomerProfile(sender, instance, created, **kwargs):
+def createProfile(sender, instance, created, **kwargs):
     if created:
-        CustomerProfile.objects.create(customer=instance)
+        Profile.objects.create(customer=instance)
 
 @receiver(post_save, sender=Customer)
-def saveCustomerProfile(sender, instance, **kwargs):
-    instance.customer_profile.save()
+def saveProfile(sender, instance, **kwargs):
+    instance.profile.save()
