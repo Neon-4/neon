@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@babel/core": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
+    "@babel/preset-react": "^7.22.15",
+    "next": "^13.5.6"
+  }
+}
