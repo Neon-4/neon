@@ -6,9 +6,12 @@ class CustomerManager(models.Manager):
     def validate(self, form):
         errors = {}
         emailCheck = self.filter(email=form['email'])
+        print('in custManager validate', form)
         if emailCheck:
+            print('found email error')
             errors['email'] = 'Email already in use'
         if form['password'] != form['confirm']:
+            print('mis matched password error')
             errors['password'] = 'Passwords do not match'
         return errors
     
@@ -23,8 +26,8 @@ class Customer(models.Model):
     createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)
 
-    def register(self):
-        self.save()
+    # def register(self):
+    #     self.save()
 
     def __str__(self):
         return self.firstName
@@ -32,7 +35,7 @@ class Customer(models.Model):
         return f'{self.firstName} {self.lastName}'
     
 
-class CustomerProfile(models.Model):
+class Profile(models.Model):
     user = models.OneToOneField(Customer, unique=True, on_delete=models.CASCADE)
     address01 = models.CharField(max_length=255, blank=True)
     address02 = models.CharField(max_length=255, blank=True)
@@ -42,7 +45,7 @@ class CustomerProfile(models.Model):
     phone = models.CharField(max_length=255, blank=True)
     age = models.DateField(blank=True, null=True)
     def __str__(self):
-        return f'{self.user.firstName} CustomerProfile'
+        return f'{self.user.firstName} Profile'
     def address(self):
         return f'{self.address01} {self.address02} {self.city} {self.state} {self.zip}'
     def tel(self):

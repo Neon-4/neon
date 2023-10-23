@@ -23,15 +23,18 @@ def apiCustomerRegistration(request):
         errors = Customer.objects.validate(request.data)
         if errors:
             print("in reg found errors")
-            for err in errors.values(request.data):
-                messages = messages.error(request, err)
-                print('reg errors for looo', messages)
-            return Response(messages, status=status.HTTP_404_NOT_FOUND)
+            return Response(errors, status=status.HTTP_400_BAD_REQUEST)  # Return validation errors
+
+        print('passed validate')
         hashedPw = bcrypt.hashpw(request.data['password'].encode(), bcrypt.gensalt()).decode()
         request.data['password'] = hashedPw
+        print('hashed pass', hashedPw)
         serializer = CustomerSerializer(data=request.data)
         if serializer.is_valid():
+            print('in serializer valid', serializer.validated_data)
             serializer.save()
+            customer = Customer.objects.get(email=request.data['email'])
+            profile, created = Profile.objects.get_or_create(user=customer)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
