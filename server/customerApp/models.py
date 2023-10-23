@@ -37,6 +37,7 @@ class Customer(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(Customer, unique=True, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='profiles', default="cartoonCar06.png")
     address01 = models.CharField(max_length=255, blank=True)
     address02 = models.CharField(max_length=255, blank=True)
     city = models.CharField(max_length=255, blank=True)
