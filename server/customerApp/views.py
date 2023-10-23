@@ -15,6 +15,16 @@ def apiGetAllCustomers(request):
         data = []
         return Response(data, status=status.HTTP_404_NOT_FOUND)
     
+@api_view(['GET'])
+def apiGetFullAllCustomers(request):
+    try:
+        customers = Customer.objects.select_related('profile').all()
+        serializer = CustomerWithProfileSerializer(customers, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Customer.DoesNotExist:
+        data = []
+        return Response(data, status=status.HTTP_404_NOT_FOUND)
+    
 
 @api_view(['POST'])
 def apiCustomerRegistration(request):
@@ -24,7 +34,6 @@ def apiCustomerRegistration(request):
         if errors:
             print("in reg found errors")
             return Response(errors, status=status.HTTP_400_BAD_REQUEST)  # Return validation errors
-
         print('passed validate')
         hashedPw = bcrypt.hashpw(request.data['password'].encode(), bcrypt.gensalt()).decode()
         request.data['password'] = hashedPw
@@ -57,3 +66,24 @@ def apiCustomerLogin(request):
             'response': "Email not in system"
         }
         return Response(req, status=status.HTTP_401_UNAUTHORIZED)
+    
+@api_view(['PUT', 'PATCH'])
+def apiUpdateProfile(request, customer_id):
+    try:
+        customer = Customer.objects.get(id=customer_id)
+        profile = customer.profile
+
+        if request.method == 'PUT':
+            # If using PUT, replace the entire profile
+            serializer = ProfileSerializer(profile, data=request.data)
+        elif request.method == 'PATCH':
+            # If using PATCH, update specific fields
+            serializer = ProfileSerializer(profile, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    except Customer.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)

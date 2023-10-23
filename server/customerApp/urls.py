@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     # Base Route
     path('', views.apiGetAllCustomers),
+    path('fullCustomerInfo/', views.apiGetFullAllCustomers),
     path('registration/', views.apiCustomerRegistration),
     path('login/', views.apiCustomerLogin),
 
