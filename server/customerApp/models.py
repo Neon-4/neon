@@ -6,9 +6,12 @@ class CustomerManager(models.Manager):
     def validate(self, form):
         errors = {}
         emailCheck = self.filter(email=form['email'])
+        print('in custManager validate', form)
         if emailCheck:
+            print('found email error')
             errors['email'] = 'Email already in use'
         if form['password'] != form['confirm']:
+            print('mis matched password error')
             errors['password'] = 'Passwords do not match'
         return errors
     
@@ -23,8 +26,8 @@ class Customer(models.Model):
     createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)
 
-    def register(self):
-        self.save()
+    # def register(self):
+    #     self.save()
 
     def __str__(self):
         return self.firstName
