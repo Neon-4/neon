@@ -8,6 +8,14 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ProductSerializer(serializers.ModelSerializer):
+
+    image_name = serializers.SerializerMethodField()
+
+    def get_image_name(self, obj):
+        if obj.image:
+            return f"https://ecomm-back.thehive-services.com/media/{obj.image}"
+
+
     class Meta:
         model = Product
         fields = '__all__'
