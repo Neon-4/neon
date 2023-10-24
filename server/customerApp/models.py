@@ -46,7 +46,7 @@ class Profile(models.Model):
     phone = models.CharField(max_length=255, blank=True)
     age = models.DateField(blank=True, null=True)
     def __str__(self):
-        return f'{self.user.firstName} Profile'
+        return f'{self.user.firstName} {self.user.lastName} Profile'
     def address(self):
         return f'{self.address01} {self.address02} {self.city} {self.state} {self.zip}'
     def tel(self):
