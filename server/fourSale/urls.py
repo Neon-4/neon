@@ -20,12 +20,10 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework_swagger.views import get_swagger_view
-from userApp import views as app_views
 from storeApp import views as app_views
 from orderApp import views as app_views
 from themesApp import views as app_views
 from customerApp import views as app_views
-from adminApp import views as app_view
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -45,10 +43,8 @@ urlpatterns = [
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'), 
     path('admin/', admin.site.urls),
-    path('', include('userApp.urls')),
+    path('', include('themesApp.urls')),
     path('api/store/', include('storeApp.urls')),
-    path('api/', include('customerApp.urls')),
+    path('api/customer/', include('customerApp.urls')),
     path('api/order/', include('orderApp.urls')),
-    path('api/themes/', include('themesApp.urls')),
-    path('api/theAdmin', include('adminApp.urls'))
 ]

@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models.deletion import CASCADE
 from django.db.models.signals import post_save
-from userApp.models import User
+from customerApp.models import Customer
 from storeApp.models import *
 import datetime
 import string
@@ -46,7 +46,7 @@ class OrderManager(models.Manager):
     
 class Order(models.Model):
     orderNum = models.CharField(max_length=255, unique=True)
-    customer = models.ForeignKey(User, related_name='theCustomer', on_delete=CASCADE)
+    customer = models.ForeignKey(Customer, related_name='theCustomer', on_delete=CASCADE)
     itemCount = models.IntegerField(blank=True, null=True)
     orderTotal = models.CharField(max_length=255, blank=True, null=True)
     orderStatus = models.CharField(max_length=255, choices=statusOfOrder, default='New')
@@ -72,7 +72,7 @@ class OrderItem(models.Model):
     
 
 class Invoice(models.Model):
-    theCustomer = models.ForeignKey(User, related_name='custOrder',on_delete=models.CASCADE)
+    theCustomer = models.ForeignKey(Customer, related_name='custOrder',on_delete=models.CASCADE)
     cart = models.OneToOneField(Order, on_delete=models.CASCADE)
     orderDate = models.DateField(default=datetime.datetime.today)
     pdf = models.FileField(upload_to='invoices')
