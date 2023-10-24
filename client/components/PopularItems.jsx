@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react"
-import ItemBox from './ItemsBox'
-// import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import ItemBox from './ItemsBox';
 
 const PopularItems = () => {
     const items = [
