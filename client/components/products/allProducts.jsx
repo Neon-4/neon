@@ -30,7 +30,7 @@ const AllProducts = () => {
     const allProd = allProducts.slice(startIndex, startIndex + 5);
 
     const handleNext = () => {
-        if (startIndex + 5 < products.length) {
+        if (startIndex + 5 < allProd.length) {
             setStartIndex(startIndex + 5);
         }
     };
@@ -52,7 +52,7 @@ const AllProducts = () => {
             </div>
             <div className="overflow-x-auto flex pb-4">
                 {allProd.map(product => (
-                    <Link href={`/store/${product.id}/view`}>
+                    <Link href={`/store/${encodeURIComponent(id.slug)}/view`}>
                         <div className="bg-[#eae7e7] rounded-lg p-4 shadow-md mx-2" key={product.id}>
                             <img src={`http://ecom-back.thehive-services.com/media/${product.image}`} alt={product.name} className="object-cover mb-2" draggable='false' />
                             <p className="text-left text-xs md:text-md lg:text-md mt-3">${product.price}</p>
