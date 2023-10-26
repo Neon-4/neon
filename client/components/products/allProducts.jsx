@@ -53,7 +53,6 @@ const AllProducts = () => {
             </div>
             <div className="overflow-x-auto flex pb-4">
                 {allProd.map(product => (
-                    <Link href={`/store/${encodeURIComponent(id.slug)}/view`} key={product.id}>
                         <div className="bg-[#eae7e7] rounded-lg p-4 shadow-md mx-2">
                             <Image src={`http://ecom-back.thehive-services.com/media/${product.image}`} alt={product.name} className="object-cover mb-2" draggable='false' />
                             <p className="text-left text-xs md:text-md lg:text-md mt-3">${product.price}</p>
@@ -61,7 +60,6 @@ const AllProducts = () => {
                                 <AddToCartButton />
                             </div>
                         </div>
-                    </Link>
                 ))}
             </div>
         </div>

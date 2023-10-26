@@ -1,5 +1,5 @@
 // pages/categories.js
-import AllCategories from '../components/AllCategories';
+import AllCategories from '../../components/AllCategories';
 
 const CategoriesPage = () => {
 return <AllCategories />;

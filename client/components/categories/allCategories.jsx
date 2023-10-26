@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-const allCategories = () => {
+const AllCategories = () => {
     const [allCategories, setAllCategories] = useState([]);
 
     useEffect(() => {
@@ -40,4 +40,4 @@ const allCategories = () => {
     ) 
 }        
 
-export default allCategories
+export default AllCategories
