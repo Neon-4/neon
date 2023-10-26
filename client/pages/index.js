@@ -5,8 +5,8 @@ import Landing from '@/components/Landing'
 import Navbar from '@/components/Navbar'
 import Login from '@/components/Login';
 import AllProducts from '@/components/products/allProducts';
-
-const inter = Inter({ subsets: ['latin'] })
+import Link from 'next/link';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Home() {
   const [showLogin, setShowLogin] = useState(false);
@@ -15,7 +15,12 @@ export default function Home() {
     <div>
         <Navbar/>
         <Landing/>
+        <Login showLogin={showLogin} setShowLogin={setShowLogin} />
+        <Link href="/pages/products"></Link>
+
+      <Navbar />
+      <Landing />
         {/* <Login showLogin={showLogin} setShowLogin={setShowLogin} /> */}
     </div>
-  )
+  );
 }
