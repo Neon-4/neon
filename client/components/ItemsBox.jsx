@@ -3,6 +3,9 @@ import AddToCartButton from './AddToCartButton';
 import Link from 'next/link'
 
 const ItemBox = ({ id, image, itemName, itemPrice }) => {
+    // if (!id || typeof id !== 'object' || !id.slug) {
+    //     return null;
+    // }
     return (
         <div className="bg-[#eae7e7] rounded-lg p-4 shadow-md mx-2 hover:scale-105 transition-transform duration-500">
             <Link href={`/store/${encodeURIComponent(id.slug)}/view`}>
