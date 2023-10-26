@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const CustomColorInput = ({ label, value, onChange, name, type, fonts }) => {
 return (
     <div className="mb-3 text-center">

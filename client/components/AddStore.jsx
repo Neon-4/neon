@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 
 
+
 function AddStore() {
     //useState and other functions
 
@@ -23,14 +24,14 @@ function AddStore() {
         
         });
     const [storeColors, setStoreColors] = useState({
-        headerBG: '',
-        headerFont: '',
-        navBG: '',
-        navFont: '',
-        mainBG: '',
-        mainFont: '',
-        productBG: '',
-        productFont: '',
+        headerBG: '#000000',
+        headerFont: 'Arial',
+        navBG: '#000000',
+        navFont: 'Arial',
+        mainBG: '#000000',
+        mainFont: 'Arial',
+        productBG: '#000000',
+        productFont: 'Arial',
         store: '',
     });    
     const FONT_OPTIONS = [
@@ -68,6 +69,7 @@ function AddStore() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log('Submit button clicked'); 
         const isValid = validateForm(); // Validate form before submitting
             if (isValid) {
             // Submit storeInfo
@@ -97,6 +99,12 @@ function AddStore() {
 
         if (!storeInfo.storeTagLine.trim()) {
             formErrors.storeTagLine = "Store tagline is required";
+        }
+        if (!storeInfo.contactPhone.trim()) {
+            formErrors.contactPhone = "Contact Phone is required";
+        }
+        if (!storeInfo.ownerName.trim()) {
+            formErrors.ownerName = "Owner Name is required";
         }
 
         if (!storeInfo.contactEmail.trim()) {
@@ -171,6 +179,24 @@ function AddStore() {
                     {errors.contactEmail && <div className="alert alert-info mt-4" role="alert"> {errors.contactEmail}</div>}
 
                     <CustomInput 
+                    label="Owner Name" 
+                    value={storeInfo.ownerName} 
+                    onChange={handleStoreInfoChange} 
+                    type="text" 
+                    name="ownerName"
+                    />
+                    {errors.ownerName && <div className="alert alert-info mt-4" role="alert"> {errors.ownerName}</div>}
+
+                    <CustomInput 
+                    label="Contact Phone" 
+                    value={storeInfo.contactPhone} 
+                    onChange={handleStoreInfoChange} 
+                    type="text" 
+                    name="contactPhone"
+                    />
+                    {errors.contactPhone && <div className="alert alert-info mt-4" role="alert"> {errors.contactPhone}</div>}
+
+                    <CustomInput 
                         label="Address 1" 
                         value={storeInfo.address01} 
                         onChange={handleStoreInfoChange} 
@@ -219,11 +245,11 @@ function AddStore() {
                             <div className="d-flex align-items-center mr-2 ">
                                 <div className="inline-block " style={{ marginRight: '100px' }}>
                                     <CustomColorInput
-                                        label="Header BG"
-                                        value={storeColors.headerBG} 
+                                        label="Header BG" 
                                         onChange={handleStoreColorsChange} 
                                         name="headerBG"
                                         type="color"
+                                        value={storeColors.headerBG}
                                         fonts={FONT_OPTIONS}
                                     />
                                     {errors.headerBG && <div className="alert alert-info mt-4" role="alert"> {errors.headerBG}</div>}
@@ -231,10 +257,10 @@ function AddStore() {
                                 <div className="inline-block" style={{ marginRight: '100px' }}>
                                     <CustomColorInput
                                         label="Nav BG" 
-                                        value={storeColors.navBG} 
                                         onChange={handleStoreColorsChange} 
                                         name="navBG"
                                         type="color"
+                                        value={storeColors.navBG}
                                         fonts={FONT_OPTIONS}
                                     />
                                     {errors.navBG && <div className="alert alert-info mt-4" role="alert"> {errors.navBG}</div>}
@@ -242,10 +268,10 @@ function AddStore() {
                                 <div className="inline-block" style={{ marginRight: '100px' }} >
                                     <CustomColorInput
                                         label="Nav Font" 
-                                        value={storeColors.navFont} 
                                         onChange={handleStoreColorsChange} 
                                         name="navFont"
                                         type="font"
+                                        value={storeColors.navFont}
                                         fonts={FONT_OPTIONS}
                                     />
                                     {errors.navFont && <div className="alert alert-info mt-4" role="alert"> {errors.navFont}</div>}
@@ -257,10 +283,10 @@ function AddStore() {
                                 <div className="inline-block" style={{ marginRight: '20px' }} >
                                     <CustomColorInput
                                         label="Main BG" 
-                                        value={storeColors.mainBG} 
                                         onChange={handleStoreColorsChange} 
                                         name="mainBG"
                                         type="color"
+                                        value={storeColors.mainBG}
                                         fonts={FONT_OPTIONS}
                                     />
                                     {errors.navFont && <div className="alert alert-info mt-4" role="alert"> {errors.navFont}</div>}
@@ -268,21 +294,10 @@ function AddStore() {
                                 <div className="inline-block"  style={{ marginRight: '20px' }} >
                                     <CustomColorInput
                                         label="Main Font" 
-                                        value={storeColors.mainFont} 
                                         onChange={handleStoreColorsChange} 
                                         name="mainFont"
                                         type="font"
-                                        fonts={FONT_OPTIONS}
-                                    />
-                                    {errors.navFont && <div className="alert alert-info mt-4" role="alert"> {errors.navFont}</div>}
-                                </div>
-                                <div className="inline-block"  style={{ marginRight: '20px' }} >
-                                    <CustomColorInput
-                                        label="Nav Font" 
-                                        value={storeColors.navFont} 
-                                        onChange={handleStoreColorsChange} 
-                                        name="navFont"
-                                        type="font"
+                                        value={storeColors.mainBG}
                                         fonts={FONT_OPTIONS}
                                     />
                                     {errors.navFont && <div className="alert alert-info mt-4" role="alert"> {errors.navFont}</div>}
@@ -290,10 +305,10 @@ function AddStore() {
                                 <div className="inline-block"  style={{ marginRight: '20px' }} >
                                     <CustomColorInput
                                         label="Produc BG" 
-                                        value={storeColors.productBG} 
                                         onChange={handleStoreColorsChange} 
                                         name="productBG"
                                         type="color"
+                                        value={storeColors.productBG}
                                         fonts={FONT_OPTIONS}
                                     />
                                     {errors.navFont && <div className="alert alert-info mt-4" role="alert"> {errors.navFont}</div>}
@@ -301,14 +316,19 @@ function AddStore() {
                                 <div className="inline-block"  >
                                     <CustomColorInput
                                         label="Product Font" 
-                                        value={storeColors.productFont} 
                                         onChange={handleStoreColorsChange} 
                                         name="productFont"
                                         type="font"
+                                        value={storeColors.productFont}
                                         fonts={FONT_OPTIONS}
                                     />
                                     {errors.navFont && <div className="alert alert-info mt-4" role="alert"> {errors.navFont}</div>}
                                 </div>
+                                <input
+                                        type="hidden"
+                                        name="store"
+                                        value={1} // Assuming storeInfo contains the ID of the associated store
+                                    />
                             </div>
                         </div>        
 
