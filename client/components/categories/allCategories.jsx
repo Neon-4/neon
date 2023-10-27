@@ -32,8 +32,9 @@ const AllCategories = () => {
             <div className="overflow-x-auto flex pb-4">
                 {allCategories.map(category => (
                     <div className="relative w-36 h-36 bg-purple-50 rounded-full flex justify-center items-center text-center p-5 shadow-xl hover:scale-110 transition-transform duration-500" key={category.id}>
-                        <p className='absolute text-2xl text-charcoal-800'>
-                        {category.name}</p>
+                        <Link href={`/category/${category.id}/products`}>
+                            <p className='relative text-2xl text-charcoal-800'>{category.name}</p>
+                        </Link>
                     </div>
                 ))}
             </div>

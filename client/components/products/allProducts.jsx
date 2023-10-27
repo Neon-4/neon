@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import ItemBox from '../ItemsBox';
 import AddToCartButton from '../AddToCartButton';
 
 const AllProducts = () => {
@@ -52,7 +51,7 @@ const AllProducts = () => {
             <div className="overflow-x-auto flex pb-4">
                 {allProd.map(product => (
                     <div className="bg-[#eae7e7] rounded-lg p-4 shadow-md mx-2" key={product.id}>
-                        <img src={`http://ecom-back.thehive-services.com/media/${product.image}`} alt={product.name} className="object-cover mb-2" draggable='false' />
+                        <img src={`http://ecom-back.thehive-services.com/${product.image}`} alt={product.name} className="object-cover mb-2" draggable='false' />
                         <p className="text-left font-bold text-xs md:text-md lg:text-md">{product.name}</p>
                         <p className="text-left text-xs md:text-md lg:text-md mt-3">${product.price}</p>
                         <div className='mt-6'>

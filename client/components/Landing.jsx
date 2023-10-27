@@ -1,5 +1,4 @@
 import React from 'react'
-import PopularItems from './PopularItems'
 import RecommendedItems from './RecommendedItems'
 import BuyAgain from './BuyAgain'
 import AllProducts from './products/allProducts'
