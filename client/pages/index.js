@@ -2,7 +2,8 @@ import Image from 'next/image'
 import React, { useState } from 'react';
 import { Inter } from 'next/font/google'
 import Landing from '@/components/Landing'
-import Navbar from '@/components/Navbar'
+import Navbar from '@/components/Navbar';
+import Link from "next/link";
 import Login from '@/components/Login';
 import AllProducts from '@/components/products/allProducts';
 

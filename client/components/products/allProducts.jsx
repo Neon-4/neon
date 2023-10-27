@@ -29,7 +29,7 @@ const AllProducts = () => {
     const allProd = allProducts.slice(startIndex, startIndex + 5);
 
     const handleNext = () => {
-        if (startIndex + 5 < products.length) {
+        if (startIndex + 5 < allProducts.length) {
             setStartIndex(startIndex + 5);
         }
     };
