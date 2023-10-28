@@ -15,6 +15,7 @@ import os
 from environ import Env
 env = Env()
 env.read_env()
+from storeApp.utils.keys import HOST_PASSWORD
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -29,7 +30,9 @@ SECRET_KEY = 'KEY'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost:8000','127.0.0.1:8000','127.0.0.1']
+ALLOWED_HOSTS = ['localhost:8000','127.0.0.1:8000','127.0.0.1', 'ecom-back.thehive-services.com']
+
+
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
@@ -177,11 +180,11 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # email settings
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_USE_TLS = True
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = 'myemail@gmail.com'
-# EMAIL_HOST_PASSWORD = HOST_PASSWORD
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'beedev.services@gmail.com'
+EMAIL_HOST_PASSWORD = HOST_PASSWORD
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+

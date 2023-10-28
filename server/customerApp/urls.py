@@ -9,6 +9,7 @@ urlpatterns = [
     path('fullCustomerInfo/', views.apiGetFullAllCustomers),
     path('registration/', views.apiCustomerRegistration),
     path('login/', views.apiCustomerLogin),
+    path('testEmail/<int:customer_id>/', views.testEmailSending),
 
 ]
 if settings.DEBUG:

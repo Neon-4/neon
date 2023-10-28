@@ -50,7 +50,7 @@ def fullInfo(request):
             colorsSerializer = StoreColorsSerializer(StoreColors)
             theColors = Response(colorsSerializer.data) 
             theStore = (theInfo, theColors)
-            return theStore
+            return Response()
         if not storeInfo and not storeColors:
             return Response(status=404)
     except StoreInfo.DoesNotExist and StoreColors.DoesNotExist:
@@ -80,3 +80,23 @@ def addStoreColors(request):
 def apiGetUsers(request):
     users = User.objects.all().values()
     return JsonResponse(users, content_type="application.json")
+
+@api_view(['GET'])
+def apiTestFullInfo(request):
+    try:
+        storeInfo = StoreInfo.objects.select_related('storeColors').all()
+        serializer = FullStoreInfoSerializer(storeInfo, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except StoreInfo.DoesNotExist:
+        data = []
+        return Response(data, status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['GET'])
+def apiTestSToreInfoOnly(request):
+    try: 
+        storeInfo = StoreInfo.objects.order_by('-id').last()
+        serializer  = StoreInfoSerializer(storeInfo)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except StoreInfo.DoesNotExist:
+        data = []
+        return Response(data, status=status.HTTP_404_NOT_FOUND)
