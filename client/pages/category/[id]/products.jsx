@@ -1,7 +1,8 @@
-import AddToCartButton from "@/components/AddToCartButton";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import AddToCartButton from "@/components/AddToCartButton";
+import Navbar from "@/components/Navbar";
 
 const CategoryProducts = () => {
     const router = useRouter();
@@ -30,11 +31,13 @@ const CategoryProducts = () => {
 
     return (
         <div>
-            <div className="flex items-center justify-between mb-4">
-                <span className='text-3xl tracking-wider font-semibold'>Featured Categories</span>
-                <Link href={"/"}>
-                    <span className='text-3xl tracking-wider font-semibold'>Home</span>
-                </Link>
+            <Navbar />
+            <div className="px-10 pt-10">
+                <div className="mb-10">
+                    <div className="flex items-center justify-between mb-10">
+                        <span className='text-3xl tracking-wider font-semibold'>Featured Categories</span>
+                    </div>                
+                </div>
             </div>
             <div className="overflow-x-auto flex pb-4">
                 {allProducts.map(product => (
