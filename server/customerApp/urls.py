@@ -11,6 +11,7 @@ urlpatterns = [
     path('login/', views.apiCustomerLogin),
     path('updateProfile/<int:customer_id>/', views.apiUpdateProfile),
     path('testEmail/<int:customer_id>/', views.testEmailSending),
+    path('fullCustomer/<int:customer_id>/view/', views.apiGetOneFullCustomer),
 
 ]
 if settings.DEBUG:
