@@ -10,7 +10,7 @@ class CustomerManager(models.Manager):
         if emailCheck:
             print('found email error')
             errors['email'] = 'Email already in use'
-        if form['password'] != form['confirm']:
+        if form['password'] != form['confirmPassword']:
             print('mis matched password error')
             errors['password'] = 'Passwords do not match'
         return errors
