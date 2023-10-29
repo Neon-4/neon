@@ -71,7 +71,10 @@ def apiCustomerLogin(request):
             if bcrypt.checkpw(request.data['password'].encode(), custLogin.password.encode()):
                 req = {
                     'response': f"{custLogin.firstName} is now logged in",
-                    'id': custLogin.id
+                    'id': custLogin.id,
+                    'firstName': custLogin.firstName,
+                    'lastName': custLogin.lastName,
+                    'email': custLogin.email
                 }
                 id = custLogin.id
                 return Response(req, status=status.HTTP_202_ACCEPTED)
