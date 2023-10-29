@@ -1,35 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 const LoginForm = () => {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const router = useRouter();
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const response = await fetch("https://ecom-back.thehive-services.com/api/customer/login")
-                if (response.ok) {
-                    const userData = await response.json();
-                    console.log("the users", userData)
-                    setEmail(userData)
-                    setPassword(setPassword)
-                } else {
-                    throw new Error('Failed to fetch user');
-                }
-            } catch (error) {
-                console.error('Error fetching user:', error);
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await axios.post("https://ecom-back.thehive-services.com/api/customer/login", {
+                email,
+                password
+            });
+
+            if (response.status === 200) {
+                router.push("/dashboard");
+            } else {
+                console.error("Login failed");
             }
+        } catch (error) {
+            console.error("Error logging in:", error);
         }
-        fetchUser()
-    }, [])
+    };
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 p-5">
             <div className="bg-white p-8 rounded-lg shadow-md w-full sm:w-96">
                 <h1 className="text-2xl font-semibold text-center mb-6 text-[#7EB7EE]">Neon Customer Login</h1>
-                <form>
+                <form onSubmit={handleFormSubmit}>
                     <div className="mb-4">
                         <label htmlFor="email" className="block mb-1 text-sm font-medium text-gray-700">Email</label>
                         <input type="email" id="email" className="w-full p-2 border rounded-md focus:outline-none focus:border-[#7EB7EE]" />
