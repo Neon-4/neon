@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';  
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const UserProfileSettings = () => {
+const UserProfileSettings = (props) => {
+    const theUser = props.userId
+    console.log('props id', theUser)
     // State to keep track of form input values
     const [userSettings, setUserSettings] = useState({
         username: '',

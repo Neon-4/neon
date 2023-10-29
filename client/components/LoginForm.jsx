@@ -7,18 +7,22 @@ const LoginForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const router = useRouter();
+    const [userId, setUserId] = useState("")
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post("https://ecom-back.thehive-services.com/api/customer/login", {
+            const response = await axios.post("https://ecom-back.thehive-services.com//api/customer/login/", {
                 email,
                 password
             });
 
-            if (response.status === 200) {
-                router.push("/dashboard");
+            if (response.status === 202) {
+                const uid = response.data.id
+                console.log('react id', uid)
+                setUserId(userId)
+                router.push("/profile");
             } else {
                 console.error("Login failed");
             }
@@ -34,11 +38,11 @@ const LoginForm = () => {
                 <form onSubmit={handleFormSubmit}>
                     <div className="mb-4">
                         <label htmlFor="email" className="block mb-1 text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" id="email" className="w-full p-2 border rounded-md focus:outline-none focus:border-[#7EB7EE]" />
+                        <input type="email" id="email" className="w-full p-2 border rounded-md focus:outline-none focus:border-[#7EB7EE]" value={email} onChange={(e) => setEmail(e.target.value)} />
                     </div>
                     <div className="mb-6">
                         <label htmlFor="password" className="block mb-1 text-sm font-medium text-gray-700">Password</label>
-                        <input type="password" id="password" className="w-full p-2 border rounded-md focus:outline-none focus:border-[#7EB7EE]" />
+                        <input type="password" id="password" className="w-full p-2 border rounded-md focus:outline-none focus:border-[#7EB7EE]" value={password} onChange={(e) => setPassword(e.target.value)} />
                     </div>
                     <button
                         type="submit"

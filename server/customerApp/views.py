@@ -52,14 +52,17 @@ def apiCustomerRegistration(request):
     
 @api_view(['POST'])
 def apiCustomerLogin(request):
+    print('print incoming data', request.data)
     if request.method == 'POST':
         customer = Customer.objects.filter(email = request.data['email'])
         if customer:
             custLogin = customer[0]
             if bcrypt.checkpw(request.data['password'].encode(), custLogin.password.encode()):
                 req = {
-                    'response': f"{custLogin.firstName} is now logged in"
+                    'response': f"{custLogin.firstName} is now logged in",
+                    'id': custLogin.id
                 }
+                id = custLogin.id
                 return Response(req, status=status.HTTP_202_ACCEPTED)
             req = {
                 'response': "Invalid Credentials"

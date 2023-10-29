@@ -3,7 +3,9 @@ import { FiUser, FiLogOut, FiShoppingCart, FiSettings, FiUserCheck, FiList, FiEd
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 
-const Profile = () => {
+const Profile = (props) => {
+    const theUserId = props.userId
+    console.log('profile id', theUserId)
 
     // State for user data
     const [userData, setUserData] = useState({
