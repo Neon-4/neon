@@ -13,19 +13,25 @@ const LoginForm = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post("https://ecom-back.thehive-services.com//api/customer/login/", {
+            const response = await axios.post("https://ecom-back.thehive-services.com/api/customer/login/", {
                 email,
                 password
             });
 
             if (response.status === 202) {
-                const uid = response.data.id
-                console.log('react id', uid)
-                setUserId(userId)
-                router.push("/profile");
+                const userId = response.data.id;
+                console.log('User ID:', userId);
+                router.push({
+                    pathname: '/profile',
+                    query: {
+                        customer_id: userId,
+                        // firstName: firstName,
+                    },
+                });
             } else {
                 console.error("Login failed");
             }
+            
         } catch (error) {
             console.error("Error logging in:", error);
         }

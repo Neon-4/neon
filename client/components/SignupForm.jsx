@@ -26,40 +26,48 @@ const SignupForm = () => {
         setShowPassword(!showPassword);
     };
 
-    const handleFormSubmit = async (e) => {
-        e.preventDefault();
-        const { firstName, lastName, email, password, confirmPassword } = formData;
-    
-        if (password !== confirmPassword) {
-            setError('Passwords do not match');
-            return;
-        }
-    
-        try {
-            const response = await axios.post('https://ecom-back.thehive-services.com/api/customer/registration/', {
-                firstName,
-                lastName,
-                email,
-                password,
-                confirmPassword
+const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    const { firstName, lastName, email, password, confirmPassword } = formData;
+
+    if (password !== confirmPassword) {
+        setError('Passwords do not match');
+        return;
+    }
+
+    try {
+        const response = await axios.post('https://ecom-back.thehive-services.com/api/customer/registration/', {
+            firstName,
+            lastName,
+            email,
+            password,
+            confirmPassword
+        });
+
+        if (response.status === 201) {
+            const userId = response.data.id;
+            console.log('User ID:', userId);
+            router.push({
+                pathname: '/profile',
+                query: {
+                    customer_id: userId,
+                    firstName: firstName, // Pass first name here
+                    lastName: lastName,   // Pass last name here
+                    // ... pass other user data as needed
+                },
             });
-    
-            if (response.status === 201) {
-                const userId = response.data.id;
-                console.log('User ID:', userId);
-                router.push('/profile');
-            } else {
-                console.error('Registration failed');
-            }
-        } catch (error) {
-            if (error.response && error.response.data && error.response.data.email) {
-                setError('Email is already taken');
-            } else {
-                setError('Error registering user');
-            }
+        } else {
+            console.error('Registration failed');
         }
-    };
-    
+    } catch (error) {
+        if (error.response.data.email) {
+            setError('Email is already taken');
+        } else {
+            setError('Error registering user');
+        }
+    }
+};
+
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 p-5">

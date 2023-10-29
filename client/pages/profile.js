@@ -2,50 +2,75 @@ import React, { useState, useEffect } from 'react';
 import { FiUser, FiLogOut, FiShoppingCart, FiSettings, FiUserCheck, FiList, FiEdit, FiSave } from 'react-icons/fi';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+
 
 const Profile = (props) => {
-    const theUserId = props.userId
-    console.log('profile id', theUserId)
-
-    // State for user data
     const [userData, setUserData] = useState({
-        birthdate: '',
-        address: '',
-        phoneNumber: '',
+        id: null,
+        firstName: '',
+        lastName: '',
         email: '',
-        age: '',
-        location: '',
+        // ... other properties from the API response
     });
+    console.log("this is props:", userData)
 
-    // State for edit mode
+
+    const router = useRouter();
+    const { customer_id, firstName, lastName } = router.query;
+
+    console.log("displayyyyyyy:", { customer_id, firstName, lastName });
+
+    
+    const [error, setError] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
 
-    // Load user data from localStorage on initial render
     useEffect(() => {
-        const savedUserData = JSON.parse(localStorage.getItem('userData'));
-        if (savedUserData) {
-            setUserData(savedUserData);
-        }
-    }, []);
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get(`https://ecom-back.thehive-services.com/api/customer/fullCustomer/${customer_id}/view/`, {
+                    headers: {
+                        'accept': 'application/json',
+                        'X-CSRFToken': 'dAPcOgZpJ5ENjZQco4avS1m3ko0pqSSqCjn86stYSz02plR7nf2KVS18ynf9mcWT',
+                    }
+                });
+                if (response.status === 200) {
+                    const user = response.data;
+                    setUserData({
+                        id: user.id,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        email: user.email,
+                        // ... other properties from the API response
+                    });
+                }
+            } catch (error) {
+                setError('Error fetching user data. Please try again later.');
+            }
+        };
 
-    // Save user data to localStorage whenever it changes
-    useEffect(() => {
-        localStorage.setItem('userData', JSON.stringify(userData));
-    }, [userData]);
+        fetchUserData();
+    }, [props.customer_id]);
 
-    // Function to handle form field changes
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setUserData((prevUserData) => ({
-            ...prevUserData,
-            [name]: value,
-        }));
-    };
+        // Function to toggle edit mode
+        const toggleEditMode = () => {
+            setIsEditing((prevIsEditing) => !prevIsEditing);
+        };
 
-    // Function to toggle edit mode
-    const toggleEditMode = () => {
-        setIsEditing((prevIsEditing) => !prevIsEditing);
-    };
+        // Function to handle form field changes
+        const handleChange = (e) => {
+            const { name, value } = e.target;
+            setUserData((prevUserData) => ({
+                ...prevUserData,
+                [name]: value,
+            }));
+        };
+
+    // const router = useRouter();
+    // const { customer_id, firstName, lastName } = router.query;
+
+    // console.log("displayyyyyyy:", { customer_id, firstName, lastName });
 
     return (
         <div>
@@ -56,8 +81,7 @@ const Profile = (props) => {
                     alt="Profile"
                     className="w-24 h-24 rounded-full border-4 border-[#126cb3]"
                 />
-                <h2 className="mt-4 text-2xl font-semibold text-[black]">first name</h2>
-                {/* <p>Member since {session.user.timestamp}</p> */}
+                <h2 className="mt-4 text-2xl font-semibold text-[black]">{customer_id}{firstName} {lastName}</h2>
                 {/* Form for editing user data */}
                 <form className="mt-4 max-w-md w-full sm:w-2/3 md:w-1/2">
                     {/* Birthdate */}

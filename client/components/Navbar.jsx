@@ -31,8 +31,10 @@ const Navbar = (props) => {
     return (
         <nav className="bg-[#7EB8EE] p-4 flex justify-between items-center">
             <div className=" items-center">
-                <div className="text-black font-bold text-xl">4 Sale</div>
-                <div className="text-black text-sm ml-3">Buy stuff with us!</div>
+                <Link href='/' className="text-none">
+                    <div className="text-black font-bold text-xl">Neon</div>
+                </Link>
+                {/* <div className="text-black text-sm ml-3">Buy stuff with us!</div> */}
             </div>
 
             <div className="flex items-center justify-center relative text-gray-600">
