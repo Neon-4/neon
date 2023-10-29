@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+// import { products } from '@/api/products';
+import ItemBox from '../ItemsBox';
 import AddToCartButton from '../AddToCartButton';
 
 const AllProducts = () => {

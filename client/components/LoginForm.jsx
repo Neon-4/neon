@@ -1,7 +1,30 @@
-import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Link from "next/link";
 
 const LoginForm = () => {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const response = await fetch("https://ecom-back.thehive-services.com/api/customer/login")
+                if (response.ok) {
+                    const userData = await response.json();
+                    console.log("the users", userData)
+                    setEmail(userData)
+                    setPassword(setPassword)
+                } else {
+                    throw new Error('Failed to fetch user');
+                }
+            } catch (error) {
+                console.error('Error fetching user:', error);
+            }
+        }
+        fetchUser()
+    }, [])
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 p-5">
             <div className="bg-white p-8 rounded-lg shadow-md w-full sm:w-96">
