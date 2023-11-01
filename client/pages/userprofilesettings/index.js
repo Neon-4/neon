@@ -2,5 +2,5 @@
 import UserProfileSettings from "../../components/UserProfileSettings"
 
     export default function AddStorePage() {
-return <UserProfileSettings />;
+        return <UserProfileSettings />;
 }

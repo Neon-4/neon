@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { resolve } from 'styled-jsx/css';
-import Image from 'next/image';
+// import Image from 'next/image';
 
 const ProductDetail = ({ id }) => {
     // const { prod_id } = useParams();
@@ -39,7 +39,7 @@ const ProductDetail = ({ id }) => {
                     {/* Render product images */}
                     <div>
                         {productImages.map((image, index) => (
-                            <Image key={index} src={image.url} alt={`Product Img - ${index + 1}`} />
+                            <img key={index} src={image.url} alt={`Product Img - ${index + 1}`} />
                         ))}
                     </div>
                 </div>

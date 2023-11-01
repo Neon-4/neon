@@ -4,7 +4,7 @@ import { FiSearch } from "react-icons/fi";
 import { HiOutlineChevronDown } from "react-icons/hi";
 import { IoMdHome } from 'react-icons/io';
 import { FaShoppingCart, FaUser, FaCog, FaPowerOff } from 'react-icons/fa';
-import Image from "next/image";
+// import Image from "next/image";
 
 
 const Navbar = (props) => {
@@ -55,10 +55,12 @@ const Navbar = (props) => {
                 className="ml-4 relative group"
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
-                <Image
+                <img
                     src="https://lh3.googleusercontent.com/a/ACg8ocL5vm4B6bDOpM4qspaFI3GsN-5CLJp9BsNfNPOwRcQHR4W-=s576-c-no"
                     alt="User"
                     className="w-10 h-10 rounded-full cursor-pointer"
+                    // width={10}
+                    // height={10}
                 />
                 <button className="text-gray-200 focus:outline-none focus:border-gray-300 focus:ring focus:ring-gray-200 focus:ring-opacity-50 transition-all duration-300 ease-in-out transform origin-top-right scale-0 group-hover:scale-100 absolute right-0 mt-2">
                     <HiOutlineChevronDown className="h-5 w-5" />

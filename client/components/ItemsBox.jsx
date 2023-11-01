@@ -1,13 +1,13 @@
 import React from 'react';
 import AddToCartButton from './AddToCartButton';
 import Link from 'next/link'
-import Image from 'next/image';
+// import Image from 'next/image';
 
 const ItemBox = ({ id, image, itemName, itemPrice }) => {
     return (
         <div className="bg-[#eae7e7] rounded-lg p-4 shadow-md mx-2 hover:scale-105 transition-transform duration-500">
                 <Link href={`/products/${id}/view`}>
-                    <Image src={image} alt={itemName} className=" object-cover mb-2" draggable='false'/>
+                    <img src={image} alt={itemName} className=" object-cover mb-2" draggable='false'/>
                     <p className="text-left font-bold text-xs md:text-md lg:text-md">{itemName}</p>
                     <p className="text-left text-xs md:text-md lg:text-md mt-3">{itemPrice}</p>
                 </Link>
