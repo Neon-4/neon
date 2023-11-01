@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { useUser } from "./userContext";
 
 const LoginForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const router = useRouter();
     const [userId, setUserId] = useState("")
+    const [error, setError] = useState(null);
+    const { updateUser } = useUser();
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
@@ -33,6 +36,7 @@ const LoginForm = () => {
             }
             
         } catch (error) {
+            setError("Invalid credentials.");
             console.error("Error logging in:", error);
         }
     };
@@ -56,6 +60,8 @@ const LoginForm = () => {
                     >
                         Log in
                     </button>
+                    {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+
                 </form>
                 <p className="mt-4 text-sm text-gray-500 text-center">Don&apos;t have an account? <Link href="/signup" className="text-[#7EB7EE]">Sign up</Link></p>
             </div>
