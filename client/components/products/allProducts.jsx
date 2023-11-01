@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import { products } from '@/api/products';
 import ItemBox from '../ItemsBox';
 import AddToCartButton from '../AddToCartButton';
+import Link from 'next/link';
 
 const AllProducts = () => {
     const [allProducts, setAllProducts] = useState([]);
@@ -40,6 +41,12 @@ const AllProducts = () => {
             setStartIndex(startIndex - 5);
         }
     };
+    console.log('all products:', allProducts)
+    useEffect(() => {
+        allProd.forEach((product) =>{
+            console.log('products individual id:', product.id)
+        });
+    }, [allProd]);
     return (
         <div>
             <div className="flex items-center justify-between mb-4">
@@ -51,19 +58,20 @@ const AllProducts = () => {
                 </div>
             </div>
             <div className="overflow-x-auto flex pb-4">
-                {allProd.map(product => (
-                    <ItemBox key={product.id} image={product.image} name={product.name} price={product.price} />
-
-                    // <div className="bg-[#eae7e7] w-full rounded-lg p-4 shadow-md mx-2" key={product.id}>
-                    //     <div className='justify-center items-center flex'>
-                    //         <img src={`http://ecom-back.thehive-services.com/${product.image}`} alt={product.name} className="w-[10rem] mb-2" draggable='false' />
-                    //     </div>
-                    //     <p className="text-left font-bold text-xs md:text-md lg:text-md mt-3">{product.name}</p>
-                    //     <p className="text-left text-xs md:text-md lg:text-md">${product.price}</p>
-                    //     <div className=''>
-                    //         <AddToCartButton />
-                    //     </div>
-                    // </div>
+                {allProd.map(product  => (
+                    // <ItemBox key={product.id} image={product.image} name={product.name} price={product.price} />
+                    <div className="bg-[#eae7e7] w-full rounded-lg p-4 shadow-md mx-2" key={product.id}>
+                        <Link href={`/products/${product.id}/view`}>
+                            <div className='justify-center items-center flex'>
+                                <img src={`http://ecom-back.thehive-services.com/${product.image}`} alt={product.name} className="w-[10rem] mb-2" draggable='false' />
+                            </div>
+                            <p className="text-left font-bold text-xs md:text-md lg:text-md mt-3">{product.name}</p>
+                            <p className="text-left text-xs md:text-md lg:text-md">${product.price}</p>
+                        </Link>
+                        <div className=''>
+                            <AddToCartButton />
+                        </div>
+                    </div>
                 ))}
             </div>
         </div>

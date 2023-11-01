@@ -1,11 +1,11 @@
 // pages/[id]/view.jsx
 import { useRouter } from 'next/router';
-import ProductDetails from '../../../components/ProductDetails'; // adjust the import path if necessary
+import ProductDetails from '@/components/ProductDetails'; // adjust the import path if necessary
 
 const ProductPage = () => {
     const router = useRouter();
-    const { id } = router.query.id;
-    console.log('id:', id);
+    const { id } = router.query;
+    console.log('view id:', id);
 
     // Check if the "id" is available. It might be undefined initially.
     // You could also do some loading logic here.

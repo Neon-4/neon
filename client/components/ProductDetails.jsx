@@ -10,14 +10,17 @@ const ProductDetail = ({ id }) => {
     const [product, setProduct] = useState({});
     const [productImages, setProductImages] = useState([]);
     const [error, setError] = useState('');
+    
 
     useEffect(() => {
+        console.log('id in productdetails:', id)
         const fetchProduct = async () => {
             try {
                 const response = await axios.get(`http://localhost:8000/api/product/${id}/view/`);
                 console.log('response from api:', response);
                 setProduct(response.data.product);
                 setProductImages(response.data.productImages);
+
             } catch (err) {
                 console.error('error fetching data:', err);
                 setError('An error occurred while fetching data.');
