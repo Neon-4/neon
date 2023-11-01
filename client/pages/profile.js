@@ -206,6 +206,7 @@ import React, { useState, useEffect } from 'react';
 import { FiUser, FiLogOut, FiShoppingCart, FiSettings, FiUserCheck, FiList, FiEdit, FiSave } from 'react-icons/fi';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+import Image from 'next/image';
 
 const Profile = () => {
     // const { data: session } = useSession();
@@ -255,7 +256,7 @@ const Profile = () => {
         <div>
             <Navbar/>
             <div className="flex flex-col items-center mt-10">
-                <img
+                <Image
                     src=''
                     alt="Profile"
                     className="w-24 h-24 rounded-full border-4 border-[#126cb3]"

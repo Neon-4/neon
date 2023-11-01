@@ -4,6 +4,7 @@ import { FiSearch } from "react-icons/fi";
 import { HiOutlineChevronDown } from "react-icons/hi";
 import { IoMdHome } from 'react-icons/io';
 import { FaShoppingCart, FaUser, FaCog, FaPowerOff } from 'react-icons/fa';
+import Image from "next/image";
 
 
 const Navbar = (props) => {
@@ -54,7 +55,7 @@ const Navbar = (props) => {
                 className="ml-4 relative group"
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
-                <img
+                <Image
                     src="https://lh3.googleusercontent.com/a/ACg8ocL5vm4B6bDOpM4qspaFI3GsN-5CLJp9BsNfNPOwRcQHR4W-=s576-c-no"
                     alt="User"
                     className="w-10 h-10 rounded-full cursor-pointer"

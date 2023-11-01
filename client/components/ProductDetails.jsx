@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { resolve } from 'styled-jsx/css';
+import Image from 'next/image';
 
-const ProductDetail = () => {
+const ProductDetail = ({ id }) => {
     // const { prod_id } = useParams();
     const [product, setProduct] = useState({});
     const [productImages, setProductImages] = useState([]);
@@ -14,7 +15,6 @@ const ProductDetail = () => {
         const fetchProduct = async () => {
             try {
                 const response = await axios.get(`http://localhost:8000/api/product/${id}/view/`);
-                console.log('match.params.prod_id:', match.params.prod_id)
                 console.log('response from api:', response);
                 setProduct(response.data.product);
                 setProductImages(response.data.productImages);
@@ -25,7 +25,7 @@ const ProductDetail = () => {
         };
 
         fetchProduct();
-    }, []); // Runs once when the component mounts and whenever prod_id changes
+    }, [id]); // Runs once when the component mounts and whenever prod_id changes
 
     return (
         <div>
@@ -39,7 +39,7 @@ const ProductDetail = () => {
                     {/* Render product images */}
                     <div>
                         {productImages.map((image, index) => (
-                            <img key={index} src={image.url} alt={`Product Img - ${index + 1}`} />
+                            <Image key={index} src={image.url} alt={`Product Img - ${index + 1}`} />
                         ))}
                     </div>
                 </div>
