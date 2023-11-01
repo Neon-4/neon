@@ -1,7 +1,7 @@
 // components/ProductDetails.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import { resolve } from 'styled-jsx/css';
 // import Image from 'next/image';
 

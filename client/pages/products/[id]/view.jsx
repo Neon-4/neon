@@ -4,7 +4,7 @@ import ProductDetails from '../../../components/ProductDetails'; // adjust the i
 
 const ProductPage = () => {
     const router = useRouter();
-    const { id } = router.query;
+    const { id } = router.query.id;
     console.log('id:', id);
 
     // Check if the "id" is available. It might be undefined initially.

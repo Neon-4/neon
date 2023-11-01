@@ -4,25 +4,25 @@ import ItemBox from './ItemsBox'
 const RecommendedItems = () => {
     const items = [
         {
-            index: 1,
+            id: 1,
             image: 'https://m.media-amazon.com/images/I/51Y2jSytusL._SX300_SY300_QL70_FMwebp_.jpg',
             itemName: 'Colgate Optic White Overnight Teeth Whitening Pen',
             itemPrice: '$17.35',
         },
         {
-            index:2,
+            id:2,
             image: 'https://m.media-amazon.com/images/I/31Bfzl8w8qL._SX300_SY300_QL70_FMwebp_.jpg',
             itemName: 'Waterpik Aquarius Water Flosser Professional For Teeth',
             itemPrice: '$74.97',
         },        
         {
-            index:3,
+            id:3,
             image: 'https://m.media-amazon.com/images/I/312ijnXq4rL._SX300_SY300_QL70_FMwebp_.jpg',
             itemName: 'SKIN PERFECTING 2% BHA Liquid Salicylic Acid',
             itemPrice: '$34.93',
         },      
         {
-            index: 4,
+            id: 4,
             image: 'https://m.media-amazon.com/images/I/71SU7uQJO5L.__AC_SX300_SY300_QL70_FMwebp_.jpg',
             itemName: 'RESTCLOUD Neck and Shoulder Relaxer',
             itemPrice: '$19.99',
@@ -32,7 +32,7 @@ const RecommendedItems = () => {
             itemPrice: '$19.99',
         },        
         {
-            index: 5,
+            id: 5,
             image: 'https://m.media-amazon.com/images/I/415jogGYMuL._SX300_SY300_QL70_FMwebp_.jpg',
             itemName: 'Proactiv Acne Treatment',
             itemPrice: '$54.87',
@@ -65,8 +65,8 @@ const RecommendedItems = () => {
                 </div>
             </div>
             <div className="overflow-x-auto flex pb-4">
-                {recItems.map((item, index) => (
-                    <ItemBox key={index} image={item.image} itemName={item.itemName} itemPrice={item.itemPrice} />
+                {recItems.map((item, id) => (
+                    <ItemBox key={id} image={item.image} itemName={item.itemName} itemPrice={item.itemPrice} />
                 ))}
             </div>
         </div>
