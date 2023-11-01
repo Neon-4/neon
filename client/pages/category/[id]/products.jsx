@@ -44,6 +44,7 @@ const CategoryProducts = () => {
                     <div className="bg-[#eae7e7] rounded-lg p-4 shadow-md mx-2" key={product.id}>
                         <img src={product.image_name} alt={product.name} className="object-cover mb-2" draggable='false' />
                         <p className="text-left font-bold text-xs md:text-md lg:text-md">{product.name}</p>
+                        <p className="text-left font-bold text-xs md:text-md lg:text-md">{product.description}</p>
                         <p className="text-left text-xs md:text-md lg:text-md mt-3">${product.price}</p>
                         <div className='mt-6'>
                             <AddToCartButton />
