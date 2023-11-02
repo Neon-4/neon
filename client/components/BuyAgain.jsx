@@ -32,7 +32,7 @@ const RecommendedItems = () => {
             itemPrice: '$19.99',
         },        
         {
-            index: 5,
+            id: 5,
             image: 'https://m.media-amazon.com/images/I/415jogGYMuL._SX300_SY300_QL70_FMwebp_.jpg',
             itemName: 'Proactiv Acne Treatment',
             itemPrice: '$54.87',
