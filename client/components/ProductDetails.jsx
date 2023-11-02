@@ -1,12 +1,9 @@
 // components/ProductDetails.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import { useParams } from 'react-router-dom';
 import { resolve } from 'styled-jsx/css';
-// import Image from 'next/image';
 
 const ProductDetail = ({ id }) => {
-    // const { prod_id } = useParams();
     const [product, setProduct] = useState({});
     const [productImages, setProductImages] = useState([]);
     const [error, setError] = useState('');
@@ -28,12 +25,14 @@ const ProductDetail = ({ id }) => {
         };
 
         fetchProduct();
-    }, [id]); // Runs once when the component mounts and whenever prod_id changes
+    }, [id]); 
 
     return (
         <div>
             {error ? (
                 <p>{error}</p>
+            ) : !id? (
+                <p>Loading...</p>
             ) : (
                 <div>
                     <h1>{product.name}</h1>

@@ -66,7 +66,7 @@ const RecommendedItems = () => {
             </div>
             <div className="overflow-x-auto flex pb-4">
                 {repurchaseItems.map((item, id) => (
-                    <ItemBox id={id} image={item.image} itemName={item.itemName} itemPrice={item.itemPrice} />
+                    <ItemBox key={id} image={item.image} itemName={item.itemName} itemPrice={item.itemPrice} />
                 ))}
             </div>
         </div>

@@ -60,7 +60,7 @@ const AllProducts = () => {
             <div className="overflow-x-auto flex pb-4">
                 {allProd.map(product  => (
                     // <ItemBox key={product.id} image={product.image} name={product.name} price={product.price} />
-                    <div className="bg-[#eae7e7] w-full rounded-lg p-4 shadow-md mx-2" key={product.id}>
+                    <div className="bg-[#eae7e7] w-full rounded-lg p-4 shadow-md mx-2 hover:scale-105 transition-transform duration-500" key={product.id}>
                         <Link href={`/products/${product.id}/view`}>
                             <div className='justify-center items-center flex'>
                                 <img src={`http://ecom-back.thehive-services.com/${product.image}`} alt={product.name} className="w-[10rem] mb-2" draggable='false' />
