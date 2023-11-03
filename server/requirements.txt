@@ -43,6 +43,7 @@ pydantic_core==2.10.1
 Pygments==2.16.1
 pytz==2023.3.post1
 PyYAML==6.0.1
+reportlab==4.0.6
 requests==2.31.0
 setuptools==68.2.2
 simplejson==3.19.2

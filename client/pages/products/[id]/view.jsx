@@ -1,18 +1,13 @@
 // pages/[id]/view.jsx
 import { useRouter } from 'next/router';
-<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import AddToCartButton from "@/components/AddToCartButton";
 import ProductDetails from '../../../components/ProductDetails'; // adjust the import path if necessary
-=======
-import ProductDetails from '@/components/ProductDetails'; // adjust the import path if necessary
->>>>>>> ac6695b195ecbff2797634299d2b74c7ed2d4450
 
 const ProductPage = () => {
     const router = useRouter();
     const { id } = router.query;
-<<<<<<< HEAD
 
     const [product, setProduct] = useState([]);
 
@@ -35,9 +30,6 @@ const ProductPage = () => {
 
         fetchProduct();
     }, []);
-=======
-    console.log('view id:', id);
->>>>>>> ac6695b195ecbff2797634299d2b74c7ed2d4450
 
     // Check if the "id" is available. It might be undefined initially.
     // You could also do some loading logic here.

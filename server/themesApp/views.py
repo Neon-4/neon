@@ -92,7 +92,7 @@ def apiTestFullInfo(request):
         return Response(data, status=status.HTTP_404_NOT_FOUND)
     
 @api_view(['GET'])
-def apiTestSToreInfoOnly(request):
+def apiStoreInfo(request):
     try: 
         storeInfo = StoreInfo.objects.order_by('-id').last()
         serializer  = StoreInfoSerializer(storeInfo)
