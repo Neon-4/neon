@@ -11,7 +11,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def get_image_name(self, obj):
         if obj.image:
-            return f"https://ecomm-back.thehive-services.com/media/{obj.image}"
+            return f"https://ecom-back.thehive-services.com/media/{obj.image}"
 
     class Meta:
         model = Profile
