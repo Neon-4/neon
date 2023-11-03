@@ -30,10 +30,17 @@ def apiGetFullAllCustomers(request):
 @api_view(['GET'])
 def apiGetOneFullCustomer(request, customer_id):
     try:
-        customer = Customer.objects.select_related('profile').get(id=customer_id)
-        # profile = customer.profile
-        serializer = CustomerWithProfileSerializer(customer)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        customer = Customer.objects.get(id=customer_id)
+        customer_serializer = CustomerSerializer(customer)
+
+        profile = Profile.objects.get(user_id=customer_id)
+        profile_serializer = ProfileSerializer(profile)
+
+        res_data = {
+            'customer': customer_serializer.data,
+            'profile': profile_serializer.data
+        }
+        return Response(res_data, status=status.HTTP_200_OK)
     except Customer.DoesNotExist:
         data = []
         return Response(data, status=status.HTTP_404_NOT_FOUND)
