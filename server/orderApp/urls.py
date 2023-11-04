@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    # path('', views.apiGetOrders),
+    path('', views.apiGetOrders),
     # path('orderItems/', views.apiGetOrderItems),
     # path('invoices/', views.apiGetInvoices)
 ]
