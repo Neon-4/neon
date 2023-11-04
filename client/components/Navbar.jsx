@@ -34,7 +34,8 @@ const Navbar = (props) => {
             </div>
 
             <div className="flex items-center justify-center relative text-gray-600">
-                <div className="relative">
+                {/* search bar */}
+                {/* <div className="relative">
                     <input
                         type="search"
                         name="search"
@@ -42,7 +43,9 @@ const Navbar = (props) => {
                         className="bg-white h-10 sm:w-[16rem] md:w-[32rem] rounded-full text-sm pl-12 pr-4 focus:outline-none"
                     />
                     <FiSearch className="absolute left-4 top-3" />
-                </div>
+                </div> */}
+                {/* end search bar */}
+
                 {/* <div className="relative ml-4">
                     <select className="bg-white h-10 rounded-full text-sm px-4 focus:outline-none cursor-not-allowed">
                         <option>categories</option>
