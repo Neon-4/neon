@@ -253,22 +253,20 @@ const Profile = () => {
     };
 
     return (
-        <div>
-            <Navbar/>
+        <div className="bg-gray-100 min-h-screen">
+            <Navbar />
             <div className="flex flex-col items-center mt-10">
                 <Image
-                    src=''
+                    src=""
                     alt="Profile"
                     className="w-24 h-24 rounded-full border-4 border-[#126cb3]"
                 />
-                {/* <p>Member since {session.user.timestamp}</p> */}
-                {/* Form for editing user data */}
                 <form className="mt-4 max-w-md w-full sm:w-2/3 md:w-1/2">
                     <div className='justify-center items-center flex'>
                         <input
                             type="text"
                             name="name"
-                            value={userData.name} 
+                            value={userData.name}
                             onChange={handleChange}
                             placeholder="Enter your first and last name"
                             className={`justify-center items-center flex text-2xl font-semibold text-[black] ${isEditing ? 'bg-white border' : 'bg-gray-50'} mb-3`}
@@ -365,7 +363,7 @@ const Profile = () => {
                                 toggleEditMode();
                                 // Save the data here if needed
                             }}
-                            className="flex items-center mt-4 px-4 py-2 bg-[#126cb3] text-white rounded-lg shadow hover:bg-[black]"
+                            className="flex items-center mt-4 px-4 py-2 bg-[#126cb3] text-white font-semibold rounded-lg shadow hover:bg-[black]"
                         >
                             <FiSave className="mr-2" />
                             Save
@@ -374,7 +372,7 @@ const Profile = () => {
                         <button
                             type="button"
                             onClick={toggleEditMode}
-                            className="flex items-center mt-4 px-4 py-2 bg-[black] text-white rounded-lg shadow hover:bg-[#126cb3]"
+                            className="flex items-center mt-4 px-4 py-2 bg-black text-white font-semibold rounded-lg shadow hover:bg-[#126cb3]"
                         >
                             <FiEdit className="mr-2" />
                             Edit

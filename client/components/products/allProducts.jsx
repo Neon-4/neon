@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { products } from '@/api/products';
-import ItemBox from '../ItemsBox';
 import AddToCartButton from '../AddToCartButton';
 import Link from 'next/link';
 
@@ -43,10 +41,11 @@ const AllProducts = () => {
     };
     console.log('all products:', allProducts)
     useEffect(() => {
-        allProd.forEach((product) =>{
+        allProd.forEach((product) => {
             console.log('products individual id:', product.id)
         });
     }, [allProd]);
+
     return (
         <div>
             <div className="flex items-center justify-between mb-4">
@@ -58,18 +57,25 @@ const AllProducts = () => {
                 </div>
             </div>
             <div className="overflow-x-auto flex pb-4">
-                {allProd.map(product  => (
+                {allProd.map(product => (
                     // <ItemBox key={product.id} image={product.image} name={product.name} price={product.price} />
                     <div className="bg-[#eae7e7] w-full rounded-lg p-4 shadow-md mx-2 hover:scale-105 transition-transform duration-500" key={product.id}>
                         <Link href={`/products/${product.id}/view`}>
-                            <div className='justify-center items-center flex'>
-                                <img src={`http://ecom-back.thehive-services.com/${product.image}`} alt={product.name} className="w-[10rem] mb-2" draggable='false' />
+                            <div className="cursor-pointer transition duration-300 transform hover:scale-105">
+                                <div className="flex justify-center items-center">
+                                    <img
+                                        src={`http://ecom-back.thehive-services.com/${product.image}`}
+                                        alt={product.name}
+                                        className="w-[10rem] h-[10rem] object-cover rounded-lg mb-2"
+                                        draggable="false"
+                                    />
+                                </div>
+                                <p className="text-left font-bold text-sm md:text-md lg:text-lg mt-3">{product.name}</p>
+                                <p className="text-left text-sm md:text-md lg:text-lg font-semibold text-[#126cb3]">${product.price}</p>
                             </div>
-                            <p className="text-left font-bold text-xs md:text-md lg:text-md mt-3">{product.name}</p>
-                            <p className="text-left text-xs md:text-md lg:text-md">${product.price}</p>
                         </Link>
                         <div className=''>
-                            <AddToCartButton />
+                        <AddToCartButton product={product} />
                         </div>
                     </div>
                 ))}

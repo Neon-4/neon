@@ -31,29 +31,34 @@ const CategoryProducts = () => {
     }, [id]);
 
     return (
-        <div>
-            <Navbar />
-            <div className="px-10 pt-10">
-                <div className="mb-10">
-                    <div className="flex items-center justify-between mb-10">
-                        <span className='text-3xl tracking-wider font-semibold'>Featured Categories</span>
-                    </div>                
-                </div>
-            </div>
-            <div className="overflow-x-auto flex pb-4">
-                {allProducts.map(product => (
-                    <div className="bg-[#eae7e7] rounded-lg p-4 shadow-md mx-2" key={product.id}>
-                        <img src={product.image_name} alt={product.name} className="object-cover mb-2" draggable='false' />
-                        <p className="text-left font-bold text-xs md:text-md lg:text-md">{product.name}</p>
-                        <p className="text-left font-bold text-xs md:text-md lg:text-md">{product.description}</p>
-                        <p className="text-left text-xs md:text-md lg:text-md mt-3">${product.price}</p>
-                        <div className='mt-6'>
-                            <AddToCartButton />
+<div className="bg-gray-100 min-h-screen">
+    <Navbar />
+    <div className="container mx-auto px-6 py-10">
+        <div className="mb-10">
+            <h1 className="text-4xl font-semibold tracking-wider mb-6">Featured Categories</h1>
+        </div>
+        <div className="flex flex-wrap -mx-4">
+            {allProducts.map(product => (
+                <div key={product.id} className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-8">
+                    <div className="bg-white rounded-lg shadow-md p-6 transition duration-300 ease-in-out transform hover:scale-105">
+                        <img
+                            src={product.image_name}
+                            alt={product.name}
+                            className="object-cover mb-4 h-40 w-full rounded-lg"
+                        />
+                        <h2 className="text-lg font-semibold mb-2">{product.name}</h2>
+                        <p className="text-sm text-gray-600 mb-4">{product.description}</p>
+                        <p className="text-lg font-semibold text-primary">${product.price.toFixed(2)}</p>
+                        <div className="mt-6">
+                        <AddToCartButton product={product} />
                         </div>
                     </div>
-                ))}
-            </div>
+                </div>
+            ))}
         </div>
+    </div>
+</div>
+
     )
 }
 

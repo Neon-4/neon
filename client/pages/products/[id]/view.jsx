@@ -1,9 +1,7 @@
-// pages/[id]/view.jsx
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import AddToCartButton from "@/components/AddToCartButton";
-import ProductDetails from '../../../components/ProductDetails'; // adjust the import path if necessary
 import Image from 'next/image';
 
 const ProductPage = () => {
@@ -45,11 +43,15 @@ const ProductPage = () => {
         // setIsLoading(false)
     }, [product]);
 
-    if(isLoading) {
-        return <div>
-            <h1>Welcome to the Product Page</h1>
-            <h2>Page Loading ........</h2>
+    if (isLoading) {
+        return <div className="flex flex-col items-center justify-center h-screen bg-gray-500">
+        <h1 className="text-4xl font-semibold mb-4">Welcome to the Product Page</h1>
+        <div className="flex items-center space-x-2">
+            <div className="h-6 w-6 border-t-4 border-blue-500 border-solid rounded-full animate-spin"></div>
+            <h2 className="text-xl">Loading...</h2>
         </div>
+    </div>
+    
     } else {
         console.log("isLoading:", isLoading)
     }
@@ -58,11 +60,14 @@ const ProductPage = () => {
         // <ProductDetails id={id} />
         <div>
             <Navbar />
-            <div className="bg-[#eae7e7] rounded-lg p-4 shadow-md mx-2" key={id}>
-                <h1>{product.product.name}</h1>
-                <Image src={product.product.image_name} width={300} height={300} alt={product.product.name} />
-                <p>$ {product.product.price}.00</p>
-                <p>{product.product.description}</p>
+            <div className="bg-gray-100 rounded-lg p-6 shadow-md mx-4 my-4 max-w-sm w-full">
+                <div className="mb-4">
+                    <h1 className="text-xl font-semibold mb-2">{product.product.name}</h1>
+                    <Image src={product.product.image_name} width={150} height={150} alt={product.product.name} className="rounded-lg" />
+                </div>
+                <p className="text-gray-700 mb-2">${product.product.price.toFixed(2)}</p>
+                <p className="text-gray-600">{product.product.description}</p>
+                <AddToCartButton product={product} />
             </div>
         </div>
     )
