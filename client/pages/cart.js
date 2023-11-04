@@ -49,31 +49,3 @@ const Cart = () => {
 };
 
 export default Cart;
-
-// TRYING TO FIGURE THIS OUT:
-
-// import React from 'react';
-
-// const Cart = ({ product }) => {
-//     return (
-//         <div className="bg-gray-100 min-h-screen p-4">
-//             <h1 className="text-3xl font-semibold mb-4">Shopping Cart</h1>
-//             {product ? (
-//                 <div className="bg-white rounded-lg shadow-md p-4 transition duration-300 ease-in-out transform hover:scale-105">
-//                     <div className="flex items-center mb-4">
-//                         <img src={product.image} alt={product.name} className="w-16 h-16 object-cover mr-4" />
-//                         <div>
-//                             <h2 className="text-lg font-semibold">{product.name}</h2>
-//                             <p className="text-gray-500">${product.price.toFixed(2)}</p>
-//                         </div>
-//                     </div>
-//                     <p className="text-sm text-gray-600 mb-4">{product.description}</p>
-//                 </div>
-//             ) : (
-//                 <p className="text-gray-600">Product not found.</p>
-//             )}
-//         </div>
-//     );
-// };
-
-// export default Cart;
