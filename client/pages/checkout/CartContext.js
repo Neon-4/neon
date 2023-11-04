@@ -30,3 +30,5 @@ export const useCart = () => {
     }
     return context;
 };
+
+export default CartContext;
