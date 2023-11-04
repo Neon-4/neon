@@ -1,6 +1,6 @@
 import '@/styles/globals.css'
 import { UserProvider } from '@/components/userContext'
-import { CartProvider } from './checkout/CartContext'
+import { CartProvider } from '../components/checkout/CartContext'
 
 export default function App({ Component, pageProps }) {
   return (

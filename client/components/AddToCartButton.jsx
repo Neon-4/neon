@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCart } from '@/pages/checkout/CartContext';
+import { useCart } from '@/components/checkout/CartContext';
 import { useRouter } from 'next/router';
 
 const AddToCartButton = ({ product }) => {
