@@ -10,6 +10,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import *
 from storeApp.serializers import *
+from customerApp.models import *
+from customerApp.serializers import *
 
 
 
@@ -17,16 +19,29 @@ from storeApp.serializers import *
 def apiGetOrders(request):
     try:
         orders = Order.objects.all().values()
-        serializer = OrderItemSerializer(orders, many=True)
+        serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except Order.DoesNotExist:
         data = []
         return Response(data, status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['POST'])
+def apiCreateOrder(request):
+    if request.method == 'POST':
+        cust_id = request.data['customer_id']
+        customer = Customer.objects.get(id=cust_id)
+        profile = Profile.objects.get(user_id=cust_id)
+        
 
 @api_view(['GET'])
 def apiGetOrderItems(request):
-    orderItems = list(OrderItems.objects.all().values())
-    return JsonResponse(orderItems, content_type="application.json")
+    try:
+        orderItems = OrderItem.objects.all().values()
+        serializer = OrderItemSerializer(orderItems, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except OrderItem.DoesNotExist:
+        data = []
+        return Response(data, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['GET'])
 def apiGetInvoices(request):
