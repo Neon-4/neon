@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
-import AddToCartButton from "@/components/AddToCartButton";
+import AddToCartButtonPopItems from '@/components/AddToCartButtonPopItems';
 import Image from 'next/image';
 
 const ProductPage = () => {
@@ -31,7 +31,7 @@ const ProductPage = () => {
 
         fetchProduct();
         console.log("isLoading:", isLoading)
-    }, []);
+    }, [id]);
 
     // console.log("this is the product description:" + product.product.description);
     // Check if the "id" is available. It might be undefined initially.
@@ -67,7 +67,7 @@ const ProductPage = () => {
                 </div>
                 <p className="text-gray-700 mb-2">${product.product.price.toFixed(2)}</p>
                 <p className="text-gray-600">{product.product.description}</p>
-                <AddToCartButton product={product} />
+                <AddToCartButtonPopItems productId={id} />
             </div>
         </div>
     )

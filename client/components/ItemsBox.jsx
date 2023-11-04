@@ -1,5 +1,5 @@
 import React from 'react';
-import AddToCartButton from './AddToCartButton';
+import AddToCartButton from './AddToCartButtonCategories';
 import Link from 'next/link'
 // import Image from 'next/image';
 

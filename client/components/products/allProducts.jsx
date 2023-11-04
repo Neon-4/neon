@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AddToCartButton from '../AddToCartButton';
+import AddToCartButton from '../AddToCartButtonCategories';
 import Link from 'next/link';
 
 const AllProducts = () => {
@@ -49,14 +49,15 @@ const AllProducts = () => {
     return (
         <div>
             <div className="flex items-center justify-between mb-4">
-                <span className='text-3xl tracking-wider font-semibold'>Popular Items</span>
-                <div className="flex">
+                <span className='text-3xl tracking-wider font-semibold'>Shop now</span>
+                {/* <div className="flex">
                     <button className="text-gray-600" onClick={handlePrev}>&lt; Prev</button>
                     <span className="text-gray-600 mx-2">|</span>
                     <button className="text-gray-600" onClick={handleNext}>Next &gt;</button>
-                </div>
+                </div> */}
             </div>
-            <div className="overflow-x-auto flex pb-4">
+            {/* BEFORE (WITH SCROLLABLE VIEW) */}
+            {/* <div className="overflow-x-auto flex pb-4">
                 {allProd.map(product => (
                     // <ItemBox key={product.id} image={product.image} name={product.name} price={product.price} />
                     <div className="bg-[#eae7e7] w-full rounded-lg p-4 shadow-md mx-2 hover:scale-105 transition-transform duration-500" key={product.id}>
@@ -76,6 +77,28 @@ const AllProducts = () => {
                         </Link>
                         <div className=''>
                         <AddToCartButton product={product} />
+                        </div>
+                    </div>
+                ))}
+            </div> */}
+
+            {/* AFTER (NON SCROLLABLE VIEW) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {allProducts.map(product => (
+                    <div className="bg-[#eae7e7] rounded-lg p-4 shadow-md hover:shadow-lg transition duration-300" key={product.id}>
+                        <div className="flex justify-center mb-4">
+                            <img
+                                src={`http://ecom-back.thehive-services.com/${product.image}`}
+                                alt={product.name}
+                                className="w-full h-40 object-cover rounded-lg"
+                                draggable="false"
+                            />
+                        </div>
+                        <p className="text-left font-bold text-lg mb-1 tracking-wider">{product.name}</p>
+                        <p className="text-left text-lg font-semibold text-[#126cb3] mb-2">${product.price}</p>
+                        <p className="text-left text-sm tracking-wider mb-4">{product.description}</p>
+                        <div className="flex justify-left">
+                            <AddToCartButton product={product} />
                         </div>
                     </div>
                 ))}
