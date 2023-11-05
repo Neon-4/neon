@@ -3,10 +3,23 @@ import { useCart } from '@/components/checkout/CartContext';
 import Navbar from '@/components/Navbar';
 
 const Checkout = () => {
-    const { state } = useCart();
+    const { state, dispatch } = useCart();
     function calculateTotalPrice(items) {
-        return items.reduce((total, item) => total + item.price * item.quantity, 0);
+        // display items object
+        console.log("===this is item id", items[0]?.id)
+        console.log("===this is item desc.", items[0]?.description)
+        console.log("===this is item img", items[0]?.image)
+        console.log("===this is item name", items[0]?.name)
+        console.log("===this is item price", items[0]?.price)
+        console.log("===this is item quantity", items[0]?.quantity)
+        return items.reduce((total, item) => total + item.price, 0);
     }
+    const removeFromCart = (itemId) => {
+        dispatch({
+            type: 'REMOVE_FROM_CART',
+            payload: itemId,
+        });
+    };
 
     return (
         <div>
@@ -17,28 +30,27 @@ const Checkout = () => {
                     <h2 className="text-2xl font-semibold mb-6">Order Summary</h2>
                     <ul className="divide-y divide-gray-200">
                         {state.items.map(item => (
-                            <li key={item.id} className="py-4 flex justify-between items-center">
+                            <li key={item.id} className="py-4 justify-between items-center">
                                 <div className="flex items-center flex-grow">
-                                    <img src={item.image_name} alt='item image' className="w-20 h-20 object-cover mr-4 rounded" />
+                                    <img src={`https://ecom-back.thehive-services.com${item.image}`} alt='item image' className="w-24 h-24 object-cover mr-4 rounded" />
                                     <div className="flex flex-col flex-grow">
                                         <h3 className="text-xl font-semibold mb-2">{item.name}</h3>
                                         <p className="text-gray-600 text-lg mb-2">${item.price}</p>
-                                        <p className="text-gray-700 text-sm">{item.description}</p>
+                                        <p className="text-blue-600 mr-2 mb-3">Quant.{item.quantity}</p>
+                                        <p className="text-gray-700 text-sm tracking-wider">{item.description}</p>
                                     </div>
                                 </div>
-                                <div className="flex items-center">
-                                    <p className="text-gray-600 mr-2">Quantity: {item.quantity}</p>
-                                    {/* Add more product details here */}
-                                    {/* For example: */}
-                                    {/* <p className="text-gray-600">${item.price * item.quantity}</p> */}
+                                <div className='justify-end flex'>
+                                    <button
+                                        className="bg-black text-white mt-1 py-1 px-2 cursor-pointer hover:bg-yellow-300 hover:text-black justify-end rounded-md"
+                                        onClick={() => removeFromCart(item.id)}
+                                    >
+                                        Remove
+                                    </button>
                                 </div>
                             </li>
                         ))}
                     </ul>
-                    {/* <div className="flex justify-end mt-4">
-                        <span className="text-lg font-semibold mr-2">Total:</span>
-                        <span className="text-lg">${calculateTotalPrice(state.items)}</span>
-                    </div> */}
                 </div>
 
                 <div className="bg-white p-6 rounded-lg shadow-lg">
@@ -84,9 +96,13 @@ const Checkout = () => {
                         </div>
 
                         <div className='flex flex-col items-end'>
-                            <span className="text-lg bg-red-500 text-white p-2 rounded mb-2">
+                            {/* <span className="text-lg bg-red-500 text-white p-2 rounded mb-2">
                                 Total: ${calculateTotalPrice(state.items)}
-                            </span>
+                            </span> */}
+                            <div className='flex'>
+                                <span className="text-lg font-semibold mr-2">Total:</span>
+                                <span className="text-lg">${calculateTotalPrice(state.items)}</span>
+                            </div>
                             <div className="flex justify-end">
                                 <button type='submit' className="bg-black hover:bg-[#7EB7EE] text-white py-2 px-4 rounded">
                                     Place Order
