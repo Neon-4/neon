@@ -82,11 +82,19 @@ def apiGetUsers(request):
     return JsonResponse(users, content_type="application.json")
 
 @api_view(['GET'])
-def apiTestFullInfo(request):
+def apiStoreFullInfo(request):
     try:
-        storeInfo = StoreInfo.objects.select_related('storeColors').all()
-        serializer = FullStoreInfoSerializer(storeInfo, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        storeInfo = StoreInfo.objects.order_by('-id').last()
+        info_serializer  = StoreInfoSerializer(storeInfo)
+
+        storeColors = StoreColors.objects.order_by('-id').last()
+        colors_serializer = StoreColorsSerializer(storeColors)
+
+        responseData = {
+            'storeInfo': info_serializer.data,
+            'storeColors': colors_serializer.data
+        }
+        return Response(responseData, status=status.HTTP_200_OK)
     except StoreInfo.DoesNotExist:
         data = []
         return Response(data, status=status.HTTP_404_NOT_FOUND)
@@ -98,5 +106,15 @@ def apiStoreInfo(request):
         serializer  = StoreInfoSerializer(storeInfo)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except StoreInfo.DoesNotExist:
+        data = []
+        return Response(data, status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['GET'])
+def apiStoreColors(request):
+    try:
+        storeColors = StoreColors.objects.order_by('-id').last()
+        serializer = StoreColorsSerializer(storeColors)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except StoreColors.DoesNotExist:
         data = []
         return Response(data, status=status.HTTP_404_NOT_FOUND)
