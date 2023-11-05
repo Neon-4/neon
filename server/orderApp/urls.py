@@ -5,10 +5,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.apiGetOrders),
+    path('test/', views.apiTestCart),
     path('orderItems/', views.apiGetOrderItems),
     path('createOrder/', views.apiCreateOrder),
     path('addItem/', views.apiAddItemToOrder),
-    path('updateOrder/<str:orderNum>/<patchData>/', views.apiUpdateOrder)
+    path('updateOrder/', views.apiUpdateOrder)
     # path('invoices/', views.apiGetInvoices)
 ]
 if settings.DEBUG:

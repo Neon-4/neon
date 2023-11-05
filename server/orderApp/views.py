@@ -41,32 +41,52 @@ def apiCreateOrder(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['POST'])
+def apiTestCart(request):
+    if request.method == 'POST':
+        print('incoming request.data', request.data)
+        print('items list', request.data['theItems']['items'])
+        theItems = request.data['theItems']['items']
+        itemCount = 0
+        orderTotal = 0
+        for item in theItems:
+            itemTotal = item['price'] * item['quantity']
+            itemCount += item['quantity']
+            orderTotal += itemTotal
+        patchData = {
+            'orderNum': request.data['newOrder'],
+            'itemCount': itemCount,
+            'orderTotal': orderTotal
+        }
+        return Response(patchData, status=status.HTTP_200_OK)
+
 @api_view(['PATCH'])
 def apiUpdateOrder(request):
-
-    orderNum = request.data.get('orderNum')
-    itemCount = request.data.get('itemCount')
-    orderTotal = request.data.get('orderTotal')
-    print('request.data', request.data, "orderNum, itemCount, and orderTotal", orderNum, itemCount, orderTotal)
-    if not orderNum or not itemCount or not orderTotal:
-        return Response({"error": "Missing required data"}, status=status.HTTP_400_BAD_REQUEST)
-    
-    patchData = {
-        'itemCount': itemCount,
-        'orderTotal': orderTotal
-    }
     try:
-        theOrder = Order.objects.get(orderNum=orderNum)
-        serializer = OrderSerializer(theOrder, data=patchData, partial=True)
+        if request.method == 'PATCH':
+            order = Order.objects.get(orderNum=request.data['newOrder'])
+            aOrder = request.data['newOrder']
+            theItems = request.data['theItems']['items']
+            itemCount = 0
+            orderTotal = 0
+            for item in theItems:
+                itemTotal = item['price'] * item['quantity']
+                itemCount += item['quantity']
+                orderTotal += itemTotal
+            if not aOrder or not itemCount or not orderTotal:
+                return Response({"error": "Missing required data"}, status=status.HTTP_400_BAD_REQUEST)
+            patchData = {
+                'itemCount': itemCount,
+                'orderTotal': orderTotal
+            }
+            serializer = OrderSerializer(order, data=patchData, partial=True)
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     except Order.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-
-
 
 @api_view(['GET'])
 def apiGetOrderItems(request):
@@ -119,3 +139,5 @@ def apiAddItemToOrder(request):
 def apiGetInvoices(request):
     invoices = list(Invoice.objects.all().values())
     return JsonResponse(invoices, content_type="application.json")
+
+
