@@ -28,9 +28,19 @@ def apiGetOrders(request):
 @api_view(['POST'])
 def apiCreateOrder(request):
     if request.method == 'POST':
-        cust_id = request.data['customer_id']
-        customer = Customer.objects.get(id=cust_id)
-        profile = Profile.objects.get(user_id=cust_id)
+        # cust_id = request.data['customer_id']
+        # customer = Customer.objects.get(id=cust_id)
+        # profile = Profile.objects.get(user_id=cust_id)
+        print('incoming request.data', request.data)
+        orderNum = Order.objects.validate()
+        request.data['orderNum'] = orderNum
+        print('updated request.data', request.data)
+        serializer = OrderSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
         
 
 @api_view(['GET'])

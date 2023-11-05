@@ -3,13 +3,13 @@ from .models import *
 
 
 class OrderSerializer(serializers.ModelSerializer):
+
     class Meta:
-        model = Category
+        model = Order
         fields = '__all__'
 
 class OrderItemSerializer(serializers.ModelSerializer):
 
-    item_name = serializers.CharField(source='product.name')
     class Meta:
         model = OrderItem
         fields = '__all__'
