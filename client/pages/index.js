@@ -10,7 +10,6 @@ export default function Home() {
     <div>
         <Navbar/>
         <Landing/>
-        <Link href="/pages/products"></Link>
     </div>
   );
 }
