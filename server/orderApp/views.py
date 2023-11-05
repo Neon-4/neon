@@ -1,4 +1,4 @@
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpRequest
 from django.core.serializers import serialize
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -18,8 +18,10 @@ from customerApp.serializers import *
 @api_view(['GET'])
 def apiGetOrders(request):
     try:
-        orders = Order.objects.all().values()
+        orders = Order.objects.all()
+        print('************the orders', orders)
         serializer = OrderSerializer(orders, many=True)
+        print('=============the serializer', serializer)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except Order.DoesNotExist:
         data = []
@@ -28,20 +30,43 @@ def apiGetOrders(request):
 @api_view(['POST'])
 def apiCreateOrder(request):
     if request.method == 'POST':
-        # cust_id = request.data['customer_id']
-        # customer = Customer.objects.get(id=cust_id)
-        # profile = Profile.objects.get(user_id=cust_id)
         print('incoming request.data', request.data)
         orderNum = Order.objects.validate()
         request.data['orderNum'] = orderNum
         print('updated request.data', request.data)
-        serializer = OrderSerializer(data=request.data)
+        serializer = OrderCreateSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            print('saved data', serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        
+@api_view(['PATCH'])
+def apiUpdateOrder(request):
+
+    orderNum = request.data.get('orderNum')
+    itemCount = request.data.get('itemCount')
+    orderTotal = request.data.get('orderTotal')
+    print('request.data', request.data, "orderNum, itemCount, and orderTotal", orderNum, itemCount, orderTotal)
+    if not orderNum or not itemCount or not orderTotal:
+        return Response({"error": "Missing required data"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    patchData = {
+        'itemCount': itemCount,
+        'orderTotal': orderTotal
+    }
+    try:
+        theOrder = Order.objects.get(orderNum=orderNum)
+        serializer = OrderSerializer(theOrder, data=patchData, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Order.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
 
 @api_view(['GET'])
 def apiGetOrderItems(request):
@@ -52,6 +77,43 @@ def apiGetOrderItems(request):
     except OrderItem.DoesNotExist:
         data = []
         return Response(data, status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['POST'])
+def apiAddItemToOrder(request):
+    if request.method == 'POST':
+        theOrder = Order.objects.filter(orderNum=request.data['orderNum']).values()
+        print('**** the Order', theOrder[0])
+        theNum = request.data['orderNum']
+        theCount = int(request.data['quantity'])
+        theTotal = int(request.data['total'] )
+        if theOrder[0]['itemCount'] == None:
+            itemCount = 0
+        else:
+            itemCount = theOrder[0]['itemCount']
+        if theOrder[0]['orderTotal'] == None:
+            orderTotal = 0
+        else:
+            orderTotal = theOrder[0]['orderTotal']
+        itemCount = itemCount + theCount
+        orderTotal = int(orderTotal) + theTotal
+        patchData = {
+            "orderNum": theNum,
+            "itemCount": itemCount,
+            "orderTotal": orderTotal
+        }
+        request_for_patch = HttpRequest()
+        request_for_patch.data = patchData
+        print('patch data', patchData, 'reqforpath', request_for_patch.data, request_for_patch)
+        patching = apiUpdateOrder(request_for_patch)
+        print('patching result',patching)
+        if patching.status == 200:
+            serializer = OrderItemSerializer(data = request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return patching
+
 
 @api_view(['GET'])
 def apiGetInvoices(request):

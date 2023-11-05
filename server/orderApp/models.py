@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models.deletion import CASCADE
 from django.db.models.signals import post_save
-from customerApp.models import Customer
+from customerApp.models import *
 from storeApp.models import *
 import datetime
 import string
@@ -47,8 +47,8 @@ class OrderManager(models.Manager):
 class Order(models.Model):
     orderNum = models.CharField(max_length=255, unique=True)
     customer = models.ForeignKey(Customer, related_name='theCustomer', on_delete=CASCADE)
-    itemCount = models.IntegerField(blank=True, null=True)
-    orderTotal = models.CharField(max_length=255, blank=True, null=True)
+    itemCount = models.IntegerField(blank=True, null=True, default=0)
+    orderTotal = models.CharField(max_length=255, blank=True, null=True, default=0)
     orderStatus = models.CharField(max_length=255, choices=statusOfOrder, default='New')
     paymentStatus = models.CharField(max_length=255, choices=statusOfPay, default='New')
     createdAt = models.DateTimeField(auto_now_add=True)
