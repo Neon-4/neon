@@ -102,7 +102,20 @@ const Checkout = () => {
                                 </li>
                             ))}
                         </ul>
-                        <button type="submit">Proceed to Checkout</button>
+                        <div className='flex flex-col items-end'>
+                            {/* <span className="text-lg bg-red-500 text-white p-2 rounded mb-2">
+                                Total: ${calculateTotalPrice(state.items)}
+                            </span> */}
+                            <div className='flex'>
+                                <span className="text-lg font-semibold mr-2">Total:</span>
+                                <span className="text-lg">${calculateTotalPrice(state.items)}</span>
+                            </div>
+                            <div className="flex justify-end">
+                                <button type='submit' className="bg-black hover:bg-[#7EB7EE] text-white py-2 px-4 rounded">
+                                    Place Order
+                                </button>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 
