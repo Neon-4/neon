@@ -9,7 +9,8 @@ urlpatterns = [
     path('orderItems/', views.apiGetOrderItems),
     path('createOrder/', views.apiCreateOrder),
     path('addItem/', views.apiAddOrderItems),
-    path('updateOrder/', views.apiUpdateOrder)
+    path('updateOrder/', views.apiUpdateOrder),
+    path('showInvoice/', views.apiSeeInvoice),
     # path('invoices/', views.apiGetInvoices)
 ]
 if settings.DEBUG:

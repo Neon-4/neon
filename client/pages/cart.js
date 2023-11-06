@@ -1,10 +1,14 @@
 import React from 'react';
 import { useCart } from '@/components/checkout/CartContext';
 import axios from "axios";
+import { useRouter } from "next/router";
 import Navbar from '@/components/Navbar';
 
 const Checkout = () => {
+    const testUrl = 'http://127.0.0.1:8000'
+    const liveUrl = 'https://ecom-back.thehive-services.com'
     const { state, dispatch } = useCart();
+    const router = useRouter();
     function calculateTotalPrice(items) {
         // display items object
         console.log("===this is item id", items[0]?.id)
@@ -26,7 +30,7 @@ const Checkout = () => {
     const handleFormSubmit = async (e) => {
         e.preventDefault()
         try {
-            const res = await axios.post("https://ecom-back.thehive-services.com/api/order/createOrder/", {
+            const res = await axios.post(`${testUrl}/api/order/createOrder/` , {
                 customer,
                 orderNum
             })
@@ -36,7 +40,7 @@ const Checkout = () => {
                 const theItems = state
 
                 try {
-                    const response = await axios.patch("https://ecom-back.thehive-services.com/api/order/updateOrder/", {
+                    const response = await axios.patch(`${testUrl}/api/order/updateOrder/`, {
                         newOrder,
                         theItems
                     })
@@ -44,19 +48,35 @@ const Checkout = () => {
                     if (response.status == 200) {
                         const allItems = response.data.allItems
                         const theNum = response.data.savedData.id
+                        const newRes = ''
                         for(var i = 0; i < allItems.length; i++){
                             var itemId = allItems[i]['id']
                             var itemPrice = allItems[i]['price']
                             var itemQuantity = allItems[i]['quantity']
                             console.log('getting item info', theNum, itemId, itemPrice, itemQuantity)
                             try {
-                                const r = await axios.post("https://ecom-back.thehive-services.com/api/order/addItem/", {
+                                const r = await axios.post(`${testUrl}/api/order/addItem/`, {
                                     theNum,
                                     itemId,
                                     itemPrice,
                                     itemQuantity
                                 })
                                 console.log('add items api', r)
+                                if (r.status == 201) {
+                                    const invoiceData = {
+                                        customer_id: customer,
+                                        order_id: theNum
+                                    }
+                                    localStorage.setItem('invoiceData', JSON.stringify(invoiceData));
+                                    router.push({
+                                        pathname: '/settings',
+                                        // query: {
+                                        //     customer_id: customer,
+                                        //     order_id: theNum
+                                        //     // firstName: firstName,
+                                        // },
+                                    });
+                                }
                             } catch (error) {
                                 console.error(error)
                             }

@@ -3,15 +3,17 @@ from django.core.serializers import serialize
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from orderApp.models import *
-from storeApp.models import *
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import *
+from .models import *
+from storeApp.models import *
 from storeApp.serializers import *
 from customerApp.models import *
 from customerApp.serializers import *
+from storeApp.utils.invoiceUtil import *
 
 
 
@@ -147,3 +149,11 @@ def apiGetInvoices(request):
     return JsonResponse(invoices, content_type="application.json")
 
 
+@api_view(['GET', 'POST'])
+def apiSeeInvoice(request):
+    if request.method == 'POST':
+        customer_id = request.data['customer_id']
+        order_id = request.data['order_id']
+        testData = generateInvoice(customer_id, order_id)
+        return Response(testData, status=status.HTTP_200_OK)
+    return Response(request.data, status=status.HTTP_404_NOT_FOUND)
