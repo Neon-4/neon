@@ -35,6 +35,7 @@ def apiCreateOrder(request):
         request.data['orderNum'] = orderNum
         print('updated request.data', request.data)
         serializer = OrderCreateSerializer(data=request.data)
+        print('**********the serializer', serializer)
         if serializer.is_valid():
             serializer.save()
             print('saved data', serializer.data)
@@ -42,23 +43,25 @@ def apiCreateOrder(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
-def apiTestCart(request):
+def apiAddOrderItems(request):
     if request.method == 'POST':
-        print('incoming request.data', request.data)
-        print('items list', request.data['theItems']['items'])
-        theItems = request.data['theItems']['items']
-        itemCount = 0
-        orderTotal = 0
-        for item in theItems:
-            itemTotal = item['price'] * item['quantity']
-            itemCount += item['quantity']
-            orderTotal += itemTotal
-        patchData = {
-            'orderNum': request.data['newOrder'],
-            'itemCount': itemCount,
-            'orderTotal': orderTotal
+        print('^^^^^^incoming item.data', request.data)
+        data = {
+            'orderNum': int(request.data['theNum']),
+            'product': int(request.data['itemId']),
+            'quantity': int(request.data['itemQuantity']),
+            'total': request.data['itemPrice']
         }
-        return Response(patchData, status=status.HTTP_200_OK)
+        print('#########the data', data)
+        serializer = OrderItemSerializer(data=data)
+        isValid = serializer.is_valid()
+        print('**********the serializer', serializer, 'is valid results', isValid)
+        if serializer.is_valid():
+            print('serilizer is valid')
+            serializer.save()
+            print('the saved data', serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PATCH'])
 def apiUpdateOrder(request):
@@ -70,7 +73,7 @@ def apiUpdateOrder(request):
             itemCount = 0
             orderTotal = 0
             for item in theItems:
-                itemTotal = item['price'] * item['quantity']
+                itemTotal = item['price']
                 itemCount += item['quantity']
                 orderTotal += itemTotal
             if not aOrder or not itemCount or not orderTotal:
@@ -80,10 +83,13 @@ def apiUpdateOrder(request):
                 'orderTotal': orderTotal
             }
             serializer = OrderSerializer(order, data=patchData, partial=True)
-
             if serializer.is_valid():
                 serializer.save()
-                return Response(serializer.data, status=status.HTTP_200_OK)
+                updatedData = {
+                    'savedData': serializer.data,
+                    'allItems': theItems
+                }
+                return Response(updatedData, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     except Order.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
