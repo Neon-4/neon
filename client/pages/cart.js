@@ -121,7 +121,7 @@ const Checkout = () => {
                 
                 <div className="bg-white p-6 rounded-lg shadow-lg">
                     <h2 className="text-xl font-semibold mb-6">Payment Information</h2>
-                    <form>
+                    <form onSubmit={handleFormSubmit}>
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-600">Credit Card Number</label>
                             <input
@@ -152,6 +152,16 @@ const Checkout = () => {
                             </div>
                         </div>
                         <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-600">Confirm Email</label>
+                            <input
+                                type="text"
+                                className="mt-1 p-2 w-full border rounded-md"
+                                placeholder="jdoe@mail.com"
+                                required
+                            />
+                        </div>
+                        {/* TODO: Double check with melissa if email input ok */}
+                        {/* <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-600">Cardholder Name</label>
                             <input
                                 type="text"
@@ -159,7 +169,7 @@ const Checkout = () => {
                                 placeholder="John Doe"
                                 required
                             />
-                        </div>
+                        </div> */}
 
                         <div className='flex flex-col items-end'>
                             {/* <span className="text-lg bg-red-500 text-white p-2 rounded mb-2">
