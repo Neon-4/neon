@@ -85,18 +85,20 @@ const AllProducts = () => {
             {/* AFTER (NON SCROLLABLE VIEW) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {allProducts.map(product => (
-                    <div className="bg-[#eae7e7] rounded-lg p-4 shadow-md hover:shadow-lg transition duration-300" key={product.id}>
-                        <div className="flex justify-center mb-4">
-                            <img
-                                src={`http://ecom-back.thehive-services.com/${product.image}`}
-                                alt={product.name}
-                                className="w-full h-40 object-cover rounded-lg"
-                                draggable="false"
-                            />
-                        </div>
-                        <p className="text-left font-bold text-lg mb-1 tracking-wider">{product.name}</p>
-                        <p className="text-left text-lg font-semibold text-[#126cb3] mb-2">${product.price}</p>
-                        <p className="text-left text-sm tracking-wider mb-4">{product.description}</p>
+                    <div className="bg-[#eae7e7] rounded-lg p-4 shadow-md hover:scale-105 transition-transform duration-500" key={product.id}>
+                        <Link href={`/products/${product.id}/view`}>
+                            <div className="flex justify-center mb-4">
+                                <img
+                                    src={`http://ecom-back.thehive-services.com/${product.image}`}
+                                    alt={product.name}
+                                    className="w-full h-40 object-cover rounded-lg"
+                                    draggable="false"
+                                    />
+                            </div>
+                            <p className="text-left font-bold text-lg mb-1 tracking-wider">{product.name}</p>
+                            <p className="text-left text-lg font-semibold text-[#126cb3] mb-2">${product.price}</p>
+                            <p className="text-left text-sm tracking-wider mb-4">{product.description}</p>
+                        </Link>
                         <div className="flex justify-left">
                             <AddToCartButton product={product} />
                         </div>
