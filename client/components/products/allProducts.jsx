@@ -86,7 +86,7 @@ const AllProducts = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {allProducts.map(product => (
                     <div className="bg-[#eae7e7] rounded-lg p-4 shadow-md hover:scale-105 transition-transform duration-500" key={product.id}>
-                        <Link href={`/products/${product.id}/view`}>
+                        {/* <Link href={`/products/${product.id}/view`}> */}
                             <div className="flex justify-center mb-4">
                                 <img
                                     src={`http://ecom-back.thehive-services.com/${product.image}`}
@@ -98,7 +98,7 @@ const AllProducts = () => {
                             <p className="text-left font-bold text-lg mb-1 tracking-wider">{product.name}</p>
                             <p className="text-left text-lg font-semibold text-[#126cb3] mb-2">${product.price}</p>
                             <p className="text-left text-sm tracking-wider mb-4">{product.description}</p>
-                        </Link>
+                        {/* </Link> */}
                         <div className="flex justify-left">
                             <AddToCartButton product={product} />
                         </div>
